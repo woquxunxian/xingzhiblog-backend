@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingzhi.xingzhiblog.dao.article.ArticleDetailMapper">
+
+    <resultMap id="articleListVOResultMap" type="ArticleListVO">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="image" column="image"/>
+        <result property="brief" column="brief"/>
+        <result property="likeCount" column="like_count"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="createTime" column="create_time"/>
+        <association property="userListVo" javaType="UserListVO">
+            <result property="userName" column="nick_name"/>
+            <result property="avatar" column="avatar"/>
+        </association>
+        <collection property="tagDtoList" ofType="TagDTO" resultMap="tagDtoListMapResult"/>
+    </resultMap>
+
+    <resultMap id="tagDtoListMapResult" type="TagDTO">
+        <result property="tagName" column="tag_name"/>
+        <result property="color" column="color"/>
+    </resultMap>
+    
+    <resultMap id="articleDetailVOResultMap" type="ArticleDetailVO">
+        <result property="articleContent" column="article_content"/>
+        <collection property="articleCommentVOList" ofType="ArticleCommentVO" resultMap="articleCommentVOResultMap"/>
+    </resultMap>
+
+    <resultMap id="articleCommentVOResultMap" type="ArticleCommentVO">
+        <result property="createTime" column="create_time"/>
+        <result property="commentContent" column="comment_content"/>
+        <association property="userListVo" javaType="UserListVO">
+            <result property="userName" column="nick_name"/>
+            <result property="avatar" column="avatar"/>
+        </association>
+        <collection property="articleCommentVOList" ofType="ArticleCommentVO" resultMap="articleCommentVOResultMap"/>
+    </resultMap>
+
+    <sql id="articleListVOFlied">
+        ab.id, ab.title, ab.image, ab.brief, ab.like_count, ab.comment_count, ab.view_count, ab.create_time, ul.nick_name, ul.avatar, atag.tag_name, atag.color
+    </sql>
+
+    <select id="getALlArticle" resultMap="articleListVOResultMap">
+        select
+            <include refid="articleListVOFlied"/>
+        from article_blog ab
+        left join article_detail ad on ab.id = ad.blog_id
+        left join user_info ul on ab.user_info_id = ul.id
+        left join article_blog_tag abt on ab.id = abt.blog_id
+        left join article_tag atag on atag.id = abt.tag_id
+        WHERE ab.is_valid = 1;
+    </select>
+    
+    <select id="getArticleContentById" resultType="ArticleDetailVO">
+        SELECT
+            ac.comment_content,
+            ac.create_time,
+            ab.title,
+            ui.nick_name
+        FROM
+            article_comment ac
+            LEFT JOIN article_blog ab ON ac.article_id = ab.id
+            LEFT JOIN user_info ui ON ui.user_id = ac.user_id
+            LEFT JOIN article_comment acc ON acc.parent_id = ac.id;
+    </select>
+
+</mapper>

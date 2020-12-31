@@ -3,6 +3,7 @@ package com.xingzhi.xingzhiblog.domain.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.Alias;
 
 /**
  * @program: xingzhiblog
@@ -13,6 +14,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Alias("TagDTO")
 public class TagDTO {
-    String name;
+    String tagName;
+    String color;
 }

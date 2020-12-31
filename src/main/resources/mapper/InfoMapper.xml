@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.xingzhi.xingzhiblog.dao.InfoMapper">
+<mapper namespace="com.xingzhi.xingzhiblog.dao.info.InfoMapper">
 
     <resultMap id="InfoVOMap" type="com.xingzhi.xingzhiblog.domain.vo.InfoVO">
         <result property="authorName" column="author_name"/>
@@ -36,10 +36,10 @@
         blog_gitee_link
     </sql>
 
-    <select id="getAllInfoById" resultType="com.xingzhi.xingzhiblog.domain.vo.InfoVO">
+    <select id="getInfo" resultType="InfoVO">
         select
             <include refid="allInfo"/>
         from my_info
-        where id = #{id} AND is_valid = 1;
+        where is_valid = 1;
     </select>
 </mapper>

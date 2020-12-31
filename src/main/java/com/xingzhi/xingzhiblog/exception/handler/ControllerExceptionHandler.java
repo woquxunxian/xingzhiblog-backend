@@ -1,11 +1,9 @@
 package com.xingzhi.xingzhiblog.exception.handler;
 
 import com.xingzhi.xingzhiblog.exception.SystemException;
-import com.xingzhi.xingzhiblog.result.ResponseObject;
-import com.xingzhi.xingzhiblog.result.ResponseUtil;
+import com.xingzhi.xingzhiblog.common.result.ResponseObject;
+import com.xingzhi.xingzhiblog.common.result.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

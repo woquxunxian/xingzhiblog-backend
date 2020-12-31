@@ -9,5 +9,5 @@ import com.xingzhi.xingzhiblog.domain.vo.InfoVO;
  * @create: 2020-12-23 17:22
  **/
 public interface InfoService {
-    InfoVO getAllInfoById(int id);
+    InfoVO getInfo();
 }

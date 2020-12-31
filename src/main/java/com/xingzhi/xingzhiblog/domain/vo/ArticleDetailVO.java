@@ -4,6 +4,7 @@ import com.xingzhi.xingzhiblog.domain.entity.ArticleComment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.Alias;
 
 import java.util.List;
 
@@ -16,7 +17,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Alias("ArticleDetailVO")
 public class ArticleDetailVO {
     String articleContent;
-    List<ArticleComment> articleCommentList;
+    List<ArticleCommentVO> articleCommentVOList;
 }

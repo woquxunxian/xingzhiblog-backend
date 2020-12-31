@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingzhi.xingzhiblog.dao.tag.TagMapper">
+
+    <resultMap id="TagVoResultMao" type="TagVO">
+        <result property="tagName" column="tag_name"/>
+        <result property="tagDescription" column="tag_description"/>
+        <result property="color" column="color"/>
+    </resultMap>
+
+    <select id="getAllTag" resultType="TagVO">
+        select tag_name, tag_description, color from article_tag;
+    </select>
+
+</mapper>

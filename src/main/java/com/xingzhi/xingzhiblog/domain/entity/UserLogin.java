@@ -3,6 +3,7 @@ package com.xingzhi.xingzhiblog.domain.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.ibatis.type.Alias;
 
 import java.util.Date;
 
@@ -15,7 +16,11 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Alias("UserLogin")
 public class UserLogin {
+
+    private static final long serialVersionUID = 1L;
+
     Integer id;
     String userName;
     String password;
