@@ -14,4 +14,5 @@ public interface TagService {
 
     List<TagVO> getAllTag();
 
+    List<TagVO> getTagByFuzzyQuery(String tagName);
 }

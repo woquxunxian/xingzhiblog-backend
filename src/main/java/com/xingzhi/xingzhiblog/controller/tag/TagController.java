@@ -20,7 +20,7 @@ import java.util.List;
  * @create: 2020-12-27 23:50
  **/
 @RestController
-@RequestMapping("tag")
+@RequestMapping("api/tag")
 @Api(tags="标签相关操作")
 public class TagController {
 
@@ -32,6 +32,14 @@ public class TagController {
     public ResponseObject getAllTag() {
         ResponseUtil responseUtil = new ResponseUtil();
         List<TagVO> tagVOList = blogTagService.getAllTag();
+        return responseUtil.success(tagVOList);
+    }
+
+    @GetMapping("search")
+    @ApiOperation("通过标签名查询标签")
+    public ResponseObject getTagByFuzzyQuery(String tagName) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        List<TagVO> tagVOList = blogTagService.getTagByFuzzyQuery(tagName);
         return responseUtil.success(tagVOList);
     }
 

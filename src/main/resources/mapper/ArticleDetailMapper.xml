@@ -23,47 +23,64 @@
         <result property="color" column="color"/>
     </resultMap>
     
-    <resultMap id="articleDetailVOResultMap" type="ArticleDetailVO">
+    <resultMap id="articleContent" type="ArticleDetailVO">
         <result property="articleContent" column="article_content"/>
-        <collection property="articleCommentVOList" ofType="ArticleCommentVO" resultMap="articleCommentVOResultMap"/>
     </resultMap>
 
-    <resultMap id="articleCommentVOResultMap" type="ArticleCommentVO">
-        <result property="createTime" column="create_time"/>
-        <result property="commentContent" column="comment_content"/>
-        <association property="userListVo" javaType="UserListVO">
-            <result property="userName" column="nick_name"/>
-            <result property="avatar" column="avatar"/>
-        </association>
-        <collection property="articleCommentVOList" ofType="ArticleCommentVO" resultMap="articleCommentVOResultMap"/>
-    </resultMap>
 
     <sql id="articleListVOFlied">
         ab.id, ab.title, ab.image, ab.brief, ab.like_count, ab.comment_count, ab.view_count, ab.create_time, ul.nick_name, ul.avatar, atag.tag_name, atag.color
     </sql>
 
     <select id="getALlArticle" resultMap="articleListVOResultMap">
-        select
+        SELECT
             <include refid="articleListVOFlied"/>
-        from article_blog ab
-        left join article_detail ad on ab.id = ad.blog_id
-        left join user_info ul on ab.user_info_id = ul.id
-        left join article_blog_tag abt on ab.id = abt.blog_id
-        left join article_tag atag on atag.id = abt.tag_id
-        WHERE ab.is_valid = 1;
+        FROM
+            article_blog ab
+            LEFT JOIN article_detail ad ON ab.id = ad.blog_id
+            LEFT JOIN user_info ul ON ab.user_info_id = ul.id
+            LEFT JOIN article_blog_tag abt ON ab.id = abt.blog_id
+            LEFT JOIN article_tag atag ON atag.id = abt.tag_id
+        WHERE
+            ab.is_valid = 1;
     </select>
     
-    <select id="getArticleContentById" resultType="ArticleDetailVO">
+    <select id="getArticleContentByBlogId" resultMap="articleContent">
         SELECT
-            ac.comment_content,
-            ac.create_time,
-            ab.title,
-            ui.nick_name
+	        article_content
         FROM
-            article_comment ac
-            LEFT JOIN article_blog ab ON ac.article_id = ab.id
-            LEFT JOIN user_info ui ON ui.user_id = ac.user_id
-            LEFT JOIN article_comment acc ON acc.parent_id = ac.id;
+	        article_detail
+        WHERE
+	        blog_id = #{blogId};
     </select>
+    
+    <select id="getArticleBySearchWithTitle" parameterType="java.lang.String" resultMap="articleListVOResultMap">
+        SELECT
+            <include refid="articleListVOFlied"/>
+        FROM
+            article_blog ab
+            LEFT JOIN article_detail ad ON ab.id = ad.blog_id
+            LEFT JOIN user_info ul ON ab.user_info_id = ul.id
+            LEFT JOIN article_blog_tag abt ON ab.id = abt.blog_id
+            LEFT JOIN article_tag atag ON atag.id = abt.tag_id
+        WHERE
+            ab.title LIKE CONCAT('%',#{articleTitle},'%') AND ab.is_valid = 1
+        ORDER BY
+            ab.create_time DESC;
+    </select>
+    
+    <update id="updateLikeCountByBlogId" parameterType="java.lang.Integer">
+        UPDATE article_blog
+        SET like_count = like_count + 1
+        WHERE
+            id = #{BlogId};
+    </update>
+
+    <update id="updateViewCountByBlogId" parameterType="java.lang.Integer">
+        UPDATE article_blog
+        SET view_count = view_count + 1
+        WHERE
+            id = #{BlogId};
+    </update>
 
 </mapper>

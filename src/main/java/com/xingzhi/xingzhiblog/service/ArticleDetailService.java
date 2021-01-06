@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.service.article;
+package com.xingzhi.xingzhiblog.service;
 
 import com.xingzhi.xingzhiblog.domain.vo.ArticleDetailVO;
 import com.xingzhi.xingzhiblog.domain.vo.ArticleListVO;
@@ -31,7 +31,18 @@ public interface ArticleDetailService {
     * @Author: 行之
     * @Date: 2020/12/31
     */
-    ArticleDetailVO getArticleContentById(int id);
+    ArticleDetailVO getArticleContentByBlogId(int blogId);
 
+    /**
+    * @Description: 通过文章标题关键字搜索文章
+    * @Param:  * @param null
+    * @return:
+    * @Author: 行之
+    * @Date: 2021/1/6
+    */
+    List<ArticleListVO> getArticleBySearchWithTitle(String articleTitle);
 
+    Integer updateLikeCountByBlogId(Integer blogId);
+
+    Integer updateViewCountByBlogId(Integer blogId);
 }

@@ -27,6 +27,7 @@ public class LogAspect {
     //在切面之前执行
     @Before("logAspect()")
     public void doBefore(JoinPoint joinPoint) {
+        System.out.println("进入切面");
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = attributes.getRequest();
         //获取URL、IP

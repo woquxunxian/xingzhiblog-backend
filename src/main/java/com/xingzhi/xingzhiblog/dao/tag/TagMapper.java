@@ -14,6 +14,22 @@ import java.util.List;
 @Repository
 public interface TagMapper {
 
+    /**
+    * @Description: 获取所有标签
+    * @Param:  * @param null
+    * @return:
+    * @Author: 行之
+    * @Date: 2021/1/6
+    */
     List<TagVO> getAllTag();
+
+    /**
+    * @Description: 通过标签名模糊查询标签
+    * @Param:  * @param null
+    * @return: 
+    * @Author: 行之
+    * @Date: 2021/1/6
+    */
+    List<TagVO> getTagByFuzzyQuery(String tagName);
 
 }

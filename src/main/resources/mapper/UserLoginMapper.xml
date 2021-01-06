@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingzhi.xingzhiblog.dao.user.UserLoginMapper">
+    <resultMap id="userListVoResultMap" type="UserListVO">
+        <result property="userName" column="nick_name"/>
+        <result property="avatar" column="avatar"/>
+    </resultMap>
+
+    <select id="getUserInfoByUserId" parameterType="java.lang.Integer" resultMap="userListVoResultMap">
+        select nick_name, avatar from user_info WHERE user_id = #{id};
+    </select>
+
+    <select id="userLoginForm" parameterType="UserLoginVO" resultType="java.lang.Integer">
+        SELECT id from user_login WHERE user_name = #{userName} AND password = #{password};
+    </select>
+
+</mapper>

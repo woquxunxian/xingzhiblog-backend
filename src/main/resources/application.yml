@@ -1,9 +1,9 @@
 server:
   port: 8081
-#  ssl:
-#    key-store: classpath:qingpingyue.top.jks
-#    key-store-password: qingpingyue
-#    key-store-type: JKS
+  ssl:
+    key-store: classpath:qingpingyue.top.jks
+    key-store-password: qingpingyue
+    key-store-type: JKS
 
 spring:
   #应用
@@ -16,6 +16,7 @@ spring:
     username: root
     password: root
     #远程
+#    url: jdbc:mysql://47.111.95.54:3306/mini_blog?useUnicode=true&characterEncoding=UTF-8&serverTimezone = Asia/Shanghai
 #    username: mini_blog
 #    password: xingzhiblog
     initialSize: 10
@@ -42,7 +43,23 @@ spring:
     #useGlobalDataSourceStat: true
   jackson:
     time-zone: GMT+8
-
+    date-format: yyyy-MM-dd HH:mm:ss
+#  devtools:
+#    restart:
+#      enabled: true  #设置开启热部署
+  # redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 1800000
+    lettuce:
+      pool:
+        max-active: 20
+        #最大阻塞等待时间（负数表示没限制）
+        max-wait: -1
+        max-idle: 5
+        min-idle: 0
 #mybatis配置
 mybatis:
   configuration:
@@ -60,3 +77,12 @@ logging:
 #    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%15.15t] %-40.40c{1.} [%X{user}] : %m%n%xwEx"
   file:
     path: /log/xingzhiblog.log
+
+#pageHelper分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+debug: true

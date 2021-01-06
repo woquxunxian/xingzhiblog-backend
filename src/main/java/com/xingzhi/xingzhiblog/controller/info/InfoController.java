@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @create: 2020-12-23 17:24
  **/
 @RestController
-@RequestMapping("info")
+@RequestMapping("api/info")
 @Api(tags = "作者信息管理")
 public class InfoController {
 

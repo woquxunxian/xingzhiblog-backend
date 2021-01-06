@@ -9,7 +9,16 @@
     </resultMap>
 
     <select id="getAllTag" resultType="TagVO">
-        select tag_name, tag_description, color from article_tag;
+        select tag_name, tag_description, color from article_tag where is_valid = 1;
+    </select>
+
+    <select id="getTagByFuzzyQuery" resultType="TagVO">
+        select
+            tag_name, tag_description, color
+        from
+            article_tag
+        where
+            tag_name like concat('%', #{tagName}, '%') and is_valid = 1;
     </select>
 
 </mapper>

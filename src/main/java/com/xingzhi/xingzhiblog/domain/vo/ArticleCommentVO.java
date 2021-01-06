@@ -2,6 +2,7 @@ package com.xingzhi.xingzhiblog.domain.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.xingzhi.xingzhiblog.domain.entity.UserInfo;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,9 +22,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Alias("ArticleCommentVO")
-public class ArticleCommentVO implements Serializable {
+public class ArticleCommentVO{
+    Integer id;
+    Integer userId;
+    @ApiModelProperty(value = "评论内容")
     String commentContent;
-    @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
     Date createTime;
     UserListVO UserListVo;
     List<ArticleCommentVO> articleCommentVOList;
