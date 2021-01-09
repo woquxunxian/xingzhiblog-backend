@@ -17,6 +17,7 @@
         <result property="blogLogo" column="blog_logo"/>
         <result property="blogIntroduction" column="blog_introduction"/>
         <result property="blogGiteeLink" column="blog_gitee_link"/>
+        <result property="blogGithubLink" column="blog_github_link"/>
     </resultMap>
 
     <sql id="allInfo">
@@ -33,7 +34,8 @@
         blog_name,
         blog_logo,
         blog_introduction,
-        blog_gitee_link
+        blog_gitee_link,
+        blog_github_link
     </sql>
 
     <select id="getInfo" resultType="InfoVO">

@@ -99,4 +99,12 @@ public class ArticleDetailServiceImpl implements ArticleDetailService {
         return updateStatus;
     }
 
+    @CacheEvict(value = "articleList", allEntries=true)
+    @Override
+    public Integer updateMinusLikeCountByBlogId(Integer blogId) {
+        Integer updateStatus  = articleDetailMapper.updateMinusLikeCountByBlogId(blogId);
+        return updateStatus;
+    }
+
+
 }

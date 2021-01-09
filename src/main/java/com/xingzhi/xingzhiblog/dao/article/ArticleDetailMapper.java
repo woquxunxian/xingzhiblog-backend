@@ -44,6 +44,15 @@ public interface ArticleDetailMapper {
     List<ArticleListVO> getArticleBySearchWithTitle(String articleTitle);
 
     /**
+    * @Description: 通过标签名查询文章
+    * @Param:  * @param null
+    * @return:
+    * @Author: 行之
+    * @Date: 2021/1/9
+    */
+    List<ArticleListVO> getArticleByTagName(String articleTagName);
+
+    /**
     * @Description: 通过博客id增加点赞数，目前只是模拟增加，后期维护用户系统后才能统计真正的点赞数量
     * @Param:  * @param null
     * @return:
@@ -60,5 +69,16 @@ public interface ArticleDetailMapper {
     * @Date: 2021/1/6
     */
     int updateViewCountByBlogId(Integer BlogId);
+
+    /**
+    * @Description: 
+    * @Param:  * @param null
+    * @return: 
+    * @Author: 行之
+    * @Date: 2021/1/9
+    */
+    int updateMinusLikeCountByBlogId(Integer BlogId);
+
+
 
 }

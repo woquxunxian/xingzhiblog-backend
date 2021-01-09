@@ -13,12 +13,11 @@ spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mini_blog?useUnicode=true&characterEncoding=UTF-8&serverTimezone = Asia/Shanghai
-    username: root
-    password: root
+#    username: root
+#    password: root
     #远程
-#    url: jdbc:mysql://47.111.95.54:3306/mini_blog?useUnicode=true&characterEncoding=UTF-8&serverTimezone = Asia/Shanghai
-#    username: mini_blog
-#    password: xingzhiblog
+    username: mini_blog
+    password: xingzhiblog
     initialSize: 10
     minIdle: 3
     maxActive: 200

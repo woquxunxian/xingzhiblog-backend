@@ -16,7 +16,6 @@ import org.apache.ibatis.type.Alias;
 @NoArgsConstructor
 @Alias("TimeLineVO")
 public class TimeLineVO {
-    Integer blogId;
-    String title;
-    String createTime;
+    String date;
+    Integer count;
 }

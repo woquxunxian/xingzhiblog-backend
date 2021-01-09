@@ -2,6 +2,7 @@ package com.xingzhi.xingzhiblog.service;
 
 import com.xingzhi.xingzhiblog.domain.vo.ArticleDetailVO;
 import com.xingzhi.xingzhiblog.domain.vo.ArticleListVO;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,4 +46,7 @@ public interface ArticleDetailService {
     Integer updateLikeCountByBlogId(Integer blogId);
 
     Integer updateViewCountByBlogId(Integer blogId);
+
+    @CacheEvict(value = "articleList", allEntries=true)
+    Integer updateMinusLikeCountByBlogId(Integer blogId);
 }

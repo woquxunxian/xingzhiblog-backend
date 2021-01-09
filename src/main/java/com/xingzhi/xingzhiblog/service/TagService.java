@@ -1,5 +1,6 @@
 package com.xingzhi.xingzhiblog.service;
 
+import com.xingzhi.xingzhiblog.domain.vo.ArticleListVO;
 import com.xingzhi.xingzhiblog.domain.vo.TagVO;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface TagService {
     List<TagVO> getAllTag();
 
     List<TagVO> getTagByFuzzyQuery(String tagName);
+
+    List<ArticleListVO> getArticleByTagName(String articleTagName);
 }

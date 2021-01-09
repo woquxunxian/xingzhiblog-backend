@@ -52,12 +52,18 @@ public class ArticleDetailController {
         return responseUtil.success(articleListVOList);
     }
 
-
-
     @PutMapping("number/like")
     @ApiOperation("通过文章id更新点赞数+1")
     public ResponseObject updateLikeCountByBlogId(Integer blogId) {
         Integer updateStatus = articleDetailService.updateLikeCountByBlogId(blogId);
+        ResponseUtil responseUtil = new ResponseUtil();
+        return responseUtil.success(updateStatus);
+    }
+
+    @PutMapping("number/unlike")
+    @ApiOperation("通过文章id更新点赞数-1")
+    public ResponseObject updateMinusLikeCountByBlogId(Integer blogId) {
+        Integer updateStatus = articleDetailService.updateMinusLikeCountByBlogId(blogId);
         ResponseUtil responseUtil = new ResponseUtil();
         return responseUtil.success(updateStatus);
     }

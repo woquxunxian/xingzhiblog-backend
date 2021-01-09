@@ -1,6 +1,8 @@
 package com.xingzhi.xingzhiblog.service.serviceimpl.tag;
 
+import com.xingzhi.xingzhiblog.dao.article.ArticleDetailMapper;
 import com.xingzhi.xingzhiblog.dao.tag.TagMapper;
+import com.xingzhi.xingzhiblog.domain.vo.ArticleListVO;
 import com.xingzhi.xingzhiblog.domain.vo.TagVO;
 import com.xingzhi.xingzhiblog.exception.SystemException;
 import com.xingzhi.xingzhiblog.service.TagService;
@@ -22,6 +24,9 @@ public class BlogTagServiceImpl implements TagService {
     @Autowired
     private TagMapper tagMapper;
 
+    @Autowired
+    private ArticleDetailMapper articleDetailMapper;
+
     @Cacheable(key="'tagList'", value = "tagList")
     @Override
     public List<TagVO> getAllTag() {
@@ -35,5 +40,18 @@ public class BlogTagServiceImpl implements TagService {
         List<TagVO> tagVOList = tagMapper.getTagByFuzzyQuery(tagName);
         if (tagVOList == null) throw new SystemException("系统出错");
         return tagVOList;
+    }
+
+    /**
+     * @Description:
+     * @Param:  * @param null
+     * @return:
+     * @Author: 行之
+     * @Date: 2021/1/9
+     */
+    @Override
+    public List<ArticleListVO> getArticleByTagName(String articleTagName) {
+        List<ArticleListVO> articleListVOList = articleDetailMapper.getArticleByTagName(articleTagName);
+        return articleListVOList;
     }
 }

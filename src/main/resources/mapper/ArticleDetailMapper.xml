@@ -42,7 +42,9 @@
             LEFT JOIN article_blog_tag abt ON ab.id = abt.blog_id
             LEFT JOIN article_tag atag ON atag.id = abt.tag_id
         WHERE
-            ab.is_valid = 1;
+            ab.is_valid = 1
+        ORDER BY
+            ab.create_time DESC;
     </select>
     
     <select id="getArticleContentByBlogId" resultMap="articleContent">
@@ -68,10 +70,32 @@
         ORDER BY
             ab.create_time DESC;
     </select>
+
+    <select id="getArticleByTagName" parameterType="java.lang.String" resultMap="articleListVOResultMap">
+        SELECT
+            <include refid="articleListVOFlied"/>
+        FROM
+            article_blog ab
+            LEFT JOIN article_detail ad ON ab.id = ad.blog_id
+            LEFT JOIN user_info ul ON ab.user_info_id = ul.id
+            LEFT JOIN article_blog_tag abt ON ab.id = abt.blog_id
+            LEFT JOIN article_tag atag ON atag.id = abt.tag_id
+        WHERE
+            atag.tag_name = #{articleTagName} AND ab.is_valid = 1
+        ORDER BY
+            ab.create_time DESC;
+    </select>
     
     <update id="updateLikeCountByBlogId" parameterType="java.lang.Integer">
         UPDATE article_blog
         SET like_count = like_count + 1
+        WHERE
+            id = #{BlogId};
+    </update>
+
+    <update id="updateMinusLikeCountByBlogId" parameterType="java.lang.Integer">
+        UPDATE article_blog
+        SET like_count = like_count - 1
         WHERE
             id = #{BlogId};
     </update>

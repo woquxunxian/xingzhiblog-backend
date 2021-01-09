@@ -35,6 +35,7 @@ public class MyInfo {
     private String blogLogo;
     private String blogIntroduction;
     private String blogGiteeLink;
+    private String blogGithubLink;
     private Integer validStatus;
     private DateTime createTime;
     private DateTime updateTime;

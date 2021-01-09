@@ -10,6 +10,7 @@
         <result property="commentContent" column="comment_content"/>
     </resultMap>
 
+    <!-- 文章id相关所有子评论查询 -->
     <resultMap id="articleChildrenComment" type="ArticleCommentVO">
         <result property="userId" column="user_id"/>
         <result property="createTime" column="create_time"/>

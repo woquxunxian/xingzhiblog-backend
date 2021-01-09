@@ -1,5 +1,6 @@
 package com.xingzhi.xingzhiblog.controller.tag;
 
+import com.xingzhi.xingzhiblog.domain.vo.ArticleListVO;
 import com.xingzhi.xingzhiblog.domain.vo.TagVO;
 import com.xingzhi.xingzhiblog.common.result.ResponseObject;
 import com.xingzhi.xingzhiblog.common.result.ResponseUtil;
@@ -41,6 +42,14 @@ public class TagController {
         ResponseUtil responseUtil = new ResponseUtil();
         List<TagVO> tagVOList = blogTagService.getTagByFuzzyQuery(tagName);
         return responseUtil.success(tagVOList);
+    }
+
+    @GetMapping("article")
+    @ApiOperation("通过标签名获取相关文章")
+    public ResponseObject getArticleContent(String articleTagName) {
+        List<ArticleListVO> articleListVOList = blogTagService.getArticleByTagName(articleTagName);
+        ResponseUtil responseUtil = new ResponseUtil();
+        return responseUtil.success(articleListVOList);
     }
 
 

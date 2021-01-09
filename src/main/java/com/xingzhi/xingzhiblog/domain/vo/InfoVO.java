@@ -30,4 +30,5 @@ public class InfoVO {
     private String blogLogo;
     private String blogIntroduction;
     private String blogGiteeLink;
+    private String blogGithubLink;
 }
