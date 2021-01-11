@@ -28,6 +28,6 @@ public class ArticleCommentVO{
     @ApiModelProperty(value = "评论内容")
     String commentContent;
     Date createTime;
-    UserListVO UserListVo;
+    WxAccountVO wxAccountVO;
     List<ArticleCommentVO> articleCommentVOList;
 }

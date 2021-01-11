@@ -1,7 +1,5 @@
 package com.xingzhi.xingzhiblog.service.serviceimpl.article;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.xingzhi.xingzhiblog.dao.article.ArticleDetailMapper;
 import com.xingzhi.xingzhiblog.domain.vo.ArticleDetailVO;
 import com.xingzhi.xingzhiblog.domain.vo.ArticleListVO;
@@ -53,7 +51,9 @@ public class ArticleDetailServiceImpl implements ArticleDetailService {
     */
     @Override
     public ArticleDetailVO getArticleContentByBlogId(int blogId) {
+        //获取文章内容
         ArticleDetailVO articleDetailVO = articleDetailMapper.getArticleContentByBlogId(blogId);
+        //获取文章评论
         articleDetailVO.setArticleCommentVOList(articleCommentService.getArticleCommentByBlogId(blogId));
         return articleDetailVO;
     }
@@ -71,6 +71,16 @@ public class ArticleDetailServiceImpl implements ArticleDetailService {
         return articleListVOList;
     }
 
+    @Override
+    public int getArticleLikeStatusByBlogIdAndUserId(Integer blogId, Integer userId) {
+        Integer likeStatus = articleDetailMapper.getArticleLikeStatusByBlogIdAndUserId(blogId, userId);
+        if (likeStatus == null) {
+            return 0;
+        } else {
+            return likeStatus;
+        }
+    }
+
     /**
     * @Description: 通过博客id增加点赞数，目前只是模拟增加，后期维护用户系统后才能统计真正的点赞数量
     * @Param:  * @param null
@@ -80,8 +90,28 @@ public class ArticleDetailServiceImpl implements ArticleDetailService {
     */
     @CacheEvict(value = "articleList", allEntries=true)
     @Override
-    public Integer updateLikeCountByBlogId(Integer blogId) {
+    public Integer updateLikeCountByBlogId(Integer blogId, Integer userId) {
+        int insertStatus = articleDetailMapper.addArticleLikeRecord(blogId, userId);
+        if (insertStatus != 1) return insertStatus;
         Integer updateStatus  = articleDetailMapper.updateLikeCountByBlogId(blogId);
+        return updateStatus;
+    }
+
+    /**
+    * @Description: 用户取消赞操作
+    * @Param:  * @param null
+    * @return:
+    * @Author: 行之
+    * @Date: 2021/1/11
+    */
+    @CacheEvict(value = "articleList", allEntries=true)
+    @Override
+    public Integer updateMinusLikeCountByBlogId(Integer blogId, Integer userId) {
+        //对点赞表进行状态更新
+        int minUpdateStatus = articleDetailMapper.updateArticleLikeStatus(blogId, userId, 0);
+        if (minUpdateStatus != 1) return minUpdateStatus;
+        //对文章表的点赞数量进行更新
+        Integer updateStatus  = articleDetailMapper.updateMinusLikeCountByBlogId(blogId);
         return updateStatus;
     }
 
@@ -99,12 +129,6 @@ public class ArticleDetailServiceImpl implements ArticleDetailService {
         return updateStatus;
     }
 
-    @CacheEvict(value = "articleList", allEntries=true)
-    @Override
-    public Integer updateMinusLikeCountByBlogId(Integer blogId) {
-        Integer updateStatus  = articleDetailMapper.updateMinusLikeCountByBlogId(blogId);
-        return updateStatus;
-    }
 
 
 }

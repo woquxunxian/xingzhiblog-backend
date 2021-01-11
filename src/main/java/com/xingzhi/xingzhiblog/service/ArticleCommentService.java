@@ -15,4 +15,5 @@ public interface ArticleCommentService {
 
     List<ArticleCommentVO> getArticleCommentByBlogId(int blogId);
 
+    Integer addArticleParentComment(String content, int userId, int blogId);
 }

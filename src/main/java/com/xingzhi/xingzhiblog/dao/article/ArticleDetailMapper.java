@@ -77,8 +77,35 @@ public interface ArticleDetailMapper {
     * @Author: 行之
     * @Date: 2021/1/9
     */
-    int updateMinusLikeCountByBlogId(Integer BlogId);
+    int updateMinusLikeCountByBlogId(Integer blogId);
 
+    /**
+    * @Description: 添加文章的点赞记录，like_status为1
+    * @Param:  * @param null
+    * @return:
+    * @Author: 行之
+    * @Date: 2021/1/11
+    */
+    int addArticleLikeRecord(Integer blogId, Integer userId);
 
+    /**
+    * @Description: 当用文章点赞表点赞状态进行更新
+    * @Param: blogId 文章id
+    * @Param: userId 微信用户id
+    * @Param: likeStatus 点赞状态：1为点赞，0为取消赞
+    * @return:
+    * @Author: 行之
+    * @Date: 2021/1/11
+    */
+    int updateArticleLikeStatus(Integer blogId, Integer userId, Integer likeStatus);
+
+    /**
+    * @Description: 获取用户是否点赞，点赞了则返回1，未点赞则返回0
+    * @Param:  * @param null
+    * @return:
+    * @Author: 行之
+    * @Date: 2021/1/11
+    */
+    Integer getArticleLikeStatusByBlogIdAndUserId(Integer blogId, Integer userId);
 
 }

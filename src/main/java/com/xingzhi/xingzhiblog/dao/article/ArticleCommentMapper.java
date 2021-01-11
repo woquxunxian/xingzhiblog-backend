@@ -19,4 +19,8 @@ public interface ArticleCommentMapper {
 
     List<ArticleCommentVO> getArticleChildrenCommentByCommentId(int parentId);
 
+    Integer addArticleParentComment(String content, int userId, int blogId);
+
+    Integer updateArticleCommentCountByBlogId(int blogId);
+
 }

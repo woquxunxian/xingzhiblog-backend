@@ -25,12 +25,20 @@ public class ArticleCommentController {
     @Autowired
     private ArticleCommentService articleCommentService;
 
-    @PostMapping("comment")
+    @GetMapping("comment/{blogId}")
     @ApiOperation("根据文章id获取相关评论")
-    public ResponseObject getArticleCommentByBlogId(int blogId) {
+    public ResponseObject getArticleCommentByBlogId(@PathVariable int blogId) {
         ResponseUtil responseUtil = new ResponseUtil();
         List<ArticleCommentVO> articleCommentVOList = articleCommentService.getArticleCommentByBlogId(blogId);
         return responseUtil.success(articleCommentVOList);
+    };
+
+    @GetMapping("comment/parent")
+    @ApiOperation("添加文章父评论")
+    public ResponseObject getArticleCommentByBlogId(String content, int userId, int blogId) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        Integer status = articleCommentService.addArticleParentComment(content, userId, blogId);
+        return responseUtil.success(status);
     };
 
 }

@@ -32,4 +32,20 @@
         ORDER BY create_time DESC;
     </select>
 
+    <insert id="addArticleParentComment" parameterType="ArticleCommentVO">
+        INSERT INTO
+            article_comment(comment_content, user_id, parent_id, article_id, create_time, update_time)
+        VALUES
+            (#{content}, #{userId}, -1, #{blogId}, NOW(), NOW());
+    </insert>
+
+    <update id="updateArticleCommentCountByBlogId">
+        UPDATE
+            article_blog
+        SET
+            comment_count = comment_count + 1
+        WHERE
+            id = #{blogId};
+    </update>
+
 </mapper>

@@ -7,6 +7,7 @@ import com.xingzhi.xingzhiblog.domain.vo.ArticleListVO;
 import com.xingzhi.xingzhiblog.service.ArticleDetailService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ import java.util.List;
  * @author: 行之
  * @create: 2020-12-30 16:46
  **/
+@Slf4j
 @RestController
 @RequestMapping("api/article")
 @Api(tags="文章相关操作")
@@ -52,23 +54,33 @@ public class ArticleDetailController {
         return responseUtil.success(articleListVOList);
     }
 
-    @PutMapping("number/like")
+    @PutMapping("like/number")
     @ApiOperation("通过文章id更新点赞数+1")
-    public ResponseObject updateLikeCountByBlogId(Integer blogId) {
-        Integer updateStatus = articleDetailService.updateLikeCountByBlogId(blogId);
+    public ResponseObject updateLikeCountByBlogId(@RequestParam("blogId") Integer blogId, @RequestParam("userId") Integer userId) {
+        log.info("like---blogId:{}",blogId + "userId:{}",userId);
+        Integer updateStatus = articleDetailService.updateLikeCountByBlogId(blogId, userId);
         ResponseUtil responseUtil = new ResponseUtil();
         return responseUtil.success(updateStatus);
     }
 
-    @PutMapping("number/unlike")
+    @GetMapping("like/status")
+    @ApiOperation("获取用户的点赞状态")
+    public ResponseObject getArticleLikeStatusByBlogIdAndUserId(Integer blogId, Integer userId) {
+        Integer updateStatus = articleDetailService.getArticleLikeStatusByBlogIdAndUserId(blogId, userId);
+        ResponseUtil responseUtil = new ResponseUtil();
+        return responseUtil.success(updateStatus);
+    }
+
+    @PutMapping("unlike/number")
     @ApiOperation("通过文章id更新点赞数-1")
-    public ResponseObject updateMinusLikeCountByBlogId(Integer blogId) {
-        Integer updateStatus = articleDetailService.updateMinusLikeCountByBlogId(blogId);
+    public ResponseObject updateMinusLikeCountByBlogId(@RequestParam("blogId") Integer blogId, @RequestParam("userId") Integer userId) {
+        log.info("unlike---blogId:{}",blogId + "userId:{}",userId);
+        Integer updateStatus = articleDetailService.updateMinusLikeCountByBlogId(blogId, userId);
         ResponseUtil responseUtil = new ResponseUtil();
         return responseUtil.success(updateStatus);
     }
 
-    @PutMapping("number/view")
+    @PutMapping("view/number")
     @ApiOperation("通过文章id更新点赞数")
     public ResponseObject updateViewCountByBlogId(Integer blogId) {
         Integer updateStatus = articleDetailService.updateViewCountByBlogId(blogId);

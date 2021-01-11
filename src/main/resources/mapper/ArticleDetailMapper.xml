@@ -29,7 +29,7 @@
 
 
     <sql id="articleListVOFlied">
-        ab.id, ab.title, ab.image, ab.brief, ab.like_count, ab.comment_count, ab.view_count, ab.create_time, ul.nick_name, ul.avatar, atag.tag_name, atag.color
+        ab.id, ab.title, ab.image, ab.brief, ab.like_count, ab.comment_count, ab.view_count, ab.create_time, al.nick_name, al.avatar, atag.tag_name, atag.color
     </sql>
 
     <select id="getALlArticle" resultMap="articleListVOResultMap">
@@ -38,7 +38,7 @@
         FROM
             article_blog ab
             LEFT JOIN article_detail ad ON ab.id = ad.blog_id
-            LEFT JOIN user_info ul ON ab.user_info_id = ul.id
+            LEFT JOIN admin_info al ON ab.admin_info_id = al.id
             LEFT JOIN article_blog_tag abt ON ab.id = abt.blog_id
             LEFT JOIN article_tag atag ON atag.id = abt.tag_id
         WHERE
@@ -62,7 +62,7 @@
         FROM
             article_blog ab
             LEFT JOIN article_detail ad ON ab.id = ad.blog_id
-            LEFT JOIN user_info ul ON ab.user_info_id = ul.id
+            LEFT JOIN admin_info al ON ab.admin_info_id = al.id
             LEFT JOIN article_blog_tag abt ON ab.id = abt.blog_id
             LEFT JOIN article_tag atag ON atag.id = abt.tag_id
         WHERE
@@ -77,13 +77,24 @@
         FROM
             article_blog ab
             LEFT JOIN article_detail ad ON ab.id = ad.blog_id
-            LEFT JOIN user_info ul ON ab.user_info_id = ul.id
+            LEFT JOIN admin_info al ON ab.admin_info_id = al.id
             LEFT JOIN article_blog_tag abt ON ab.id = abt.blog_id
             LEFT JOIN article_tag atag ON atag.id = abt.tag_id
         WHERE
             atag.tag_name = #{articleTagName} AND ab.is_valid = 1
         ORDER BY
             ab.create_time DESC;
+    </select>
+
+    <select id="getArticleLikeStatusByBlogIdAndUserId" resultType="java.lang.Integer">
+        SELECT
+            like_status
+        FROM
+            article_like
+        WHERE
+            type_id = #{blogId}
+            AND user_id = #{userId}
+            AND is_valid = 1;
     </select>
     
     <update id="updateLikeCountByBlogId" parameterType="java.lang.Integer">
@@ -93,11 +104,11 @@
             id = #{BlogId};
     </update>
 
-    <update id="updateMinusLikeCountByBlogId" parameterType="java.lang.Integer">
+    <update id="updateMinusLikeCountByBlogId">
         UPDATE article_blog
         SET like_count = like_count - 1
         WHERE
-            id = #{BlogId};
+            id = #{blogId};
     </update>
 
     <update id="updateViewCountByBlogId" parameterType="java.lang.Integer">
@@ -105,6 +116,20 @@
         SET view_count = view_count + 1
         WHERE
             id = #{BlogId};
+    </update>
+
+    <insert id="addArticleLikeRecord">
+        INSERT INTO
+            article_like (type_id, user_id, like_status, like_type, create_time, update_time)
+        VALUES
+	        (#{blogId}, #{userId}, 1, 1, NOW(), NOW());
+    </insert>
+
+    <update id="updateArticleLikeStatus">
+        UPDATE article_like
+        SET like_status = #{likeStatus}
+        WHERE
+            type_id = #{blogId} AND user_id = #{userId};
     </update>
 
 </mapper>

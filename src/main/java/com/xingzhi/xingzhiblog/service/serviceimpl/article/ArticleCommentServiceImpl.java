@@ -1,16 +1,14 @@
 package com.xingzhi.xingzhiblog.service.serviceimpl.article;
 
 import com.xingzhi.xingzhiblog.dao.article.ArticleCommentMapper;
-import com.xingzhi.xingzhiblog.dao.user.UserLoginMapper;
-import com.xingzhi.xingzhiblog.domain.entity.ArticleComment;
+import com.xingzhi.xingzhiblog.dao.wx.WxAccountMapper;
 import com.xingzhi.xingzhiblog.domain.vo.ArticleCommentVO;
-import com.xingzhi.xingzhiblog.domain.vo.UserListVO;
-import com.xingzhi.xingzhiblog.exception.SystemException;
+import com.xingzhi.xingzhiblog.domain.vo.WxAccountVO;
 import com.xingzhi.xingzhiblog.service.ArticleCommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,26 +24,39 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     private ArticleCommentMapper articleCommentMapper;
 
     @Autowired
-    private UserLoginMapper userLoginMapper;
+    private WxAccountMapper wxAccountMapper;
 
     @Override
     public List<ArticleCommentVO> getArticleCommentByBlogId(int blogId) {
+        //获取父评论
         List<ArticleCommentVO> articleCommentVOParentList = articleCommentMapper.getArticleParentCommentByBlogId(blogId, -1);
         if (articleCommentVOParentList.size() == 0) return null;
         // 循环把子评论和父评论对上，并放入返回结果
         for (ArticleCommentVO articleParentCommentVO : articleCommentVOParentList) {
             int userId = articleParentCommentVO.getUserId();
             int commentId = articleParentCommentVO.getId();
-            UserListVO userListVO = userLoginMapper.getUserInfoByUserId(userId);
-            articleParentCommentVO.setUserListVo(userListVO);
+            //获取用户微信账户信息
+            WxAccountVO wxAccountVO = wxAccountMapper.getWxAccountById(userId);
+            articleParentCommentVO.setWxAccountVO(wxAccountVO);
+            //获取子评论
             List<ArticleCommentVO> articleCommentVOChildrenList = articleCommentMapper.getArticleChildrenCommentByCommentId(commentId);
             for (ArticleCommentVO articleChildrenCommentVO : articleCommentVOChildrenList) {
                 int childrenUserId = articleChildrenCommentVO.getUserId();
-                UserListVO userChildrenListVO = userLoginMapper.getUserInfoByUserId(childrenUserId);
-                articleChildrenCommentVO.setUserListVo(userChildrenListVO);
+                WxAccountVO childWxAccountVO = wxAccountMapper.getWxAccountById(childrenUserId);
+                articleChildrenCommentVO.setWxAccountVO(childWxAccountVO);
             }
             articleParentCommentVO.setArticleCommentVOList(articleCommentVOChildrenList);
         }
         return articleCommentVOParentList;
     }
+
+    @Override
+    @CacheEvict(value = "articleList", allEntries=true)
+    public Integer addArticleParentComment(String content, int userId, int blogId) {
+        Integer insertCommentStatus = articleCommentMapper.addArticleParentComment(content, userId, blogId);
+        if (insertCommentStatus == 0) return insertCommentStatus;
+        Integer updateCommentCountStatus = articleCommentMapper.updateArticleCommentCountByBlogId(blogId);
+        return updateCommentCountStatus;
+    }
+
 }
