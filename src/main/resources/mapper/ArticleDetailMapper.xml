@@ -104,6 +104,16 @@
             id = #{BlogId};
     </update>
 
+    <select id="getUserArticleLikeRecord" resultType="java.lang.Integer">
+        SELECT
+            id
+        FROM
+            article_like
+        WHERE
+            user_id = #{userId}
+            AND type_id = #{blogId};
+    </select>
+
     <update id="updateMinusLikeCountByBlogId">
         UPDATE article_blog
         SET like_count = like_count - 1

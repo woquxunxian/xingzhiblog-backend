@@ -62,6 +62,15 @@ public interface ArticleDetailMapper {
     int updateLikeCountByBlogId(Integer BlogId);
 
     /**
+    * @Description: 查看用户在相关文章是否存在点赞的记录
+    * @Param:  * @param null
+    * @return:
+    * @Author: 行之
+    * @Date: 2021/1/13
+    */
+    Integer getUserArticleLikeRecord(Integer blogId, Integer userId);
+
+    /**
     * @Description: 通过博客id增加阅读数，目前只是模拟增加，后期维护用户系统后才能统计真正的阅读数量
     * @Param:  * @param null
     * @return:

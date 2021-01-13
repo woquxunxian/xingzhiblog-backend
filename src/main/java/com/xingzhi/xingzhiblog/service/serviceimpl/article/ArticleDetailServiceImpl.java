@@ -82,7 +82,7 @@ public class ArticleDetailServiceImpl implements ArticleDetailService {
     }
 
     /**
-    * @Description: 通过博客id增加点赞数，目前只是模拟增加，后期维护用户系统后才能统计真正的点赞数量
+    * @Description: 通过博客id增加点赞数，赞+1
     * @Param:  * @param null
     * @return:
     * @Author: 行之
@@ -91,6 +91,11 @@ public class ArticleDetailServiceImpl implements ArticleDetailService {
     @CacheEvict(value = "articleList", allEntries=true)
     @Override
     public Integer updateLikeCountByBlogId(Integer blogId, Integer userId) {
+        Integer isExist = articleDetailMapper.getUserArticleLikeRecord(blogId, userId);
+        if (isExist != null) {
+            int plusUpdateStatus = articleDetailMapper.updateArticleLikeStatus(blogId, userId, 1);
+            return plusUpdateStatus;
+        }
         int insertStatus = articleDetailMapper.addArticleLikeRecord(blogId, userId);
         if (insertStatus != 1) return insertStatus;
         Integer updateStatus  = articleDetailMapper.updateLikeCountByBlogId(blogId);
@@ -98,7 +103,7 @@ public class ArticleDetailServiceImpl implements ArticleDetailService {
     }
 
     /**
-    * @Description: 用户取消赞操作
+    * @Description: 用户取消赞操作,赞-1
     * @Param:  * @param null
     * @return:
     * @Author: 行之
