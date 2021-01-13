@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface WxAccountMapper {
 
-    Integer addWxLoginAcount(String avatarUrl, String nickName, String openId, String unionId);
+    Integer addWxLoginAccount(WxAccountVO wxAccountVO);
 
     WxAccountVO getWxAccountByOpenId(String openId);
 

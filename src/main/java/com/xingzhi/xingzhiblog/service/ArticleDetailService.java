@@ -42,12 +42,6 @@ public interface ArticleDetailService {
     */
     List<ArticleListVO> getArticleBySearchWithTitle(String articleTitle);
 
-    int getArticleLikeStatusByBlogIdAndUserId(Integer blogId, Integer userId);
-
-    Integer updateLikeCountByBlogId(Integer blogId, Integer userId);
-
-    Integer updateMinusLikeCountByBlogId(Integer blogId, Integer userId);
-
     Integer updateViewCountByBlogId(Integer blogId);
 
 }

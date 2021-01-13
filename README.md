@@ -31,7 +31,7 @@
 | Java后端：https://github.com/woquxunxian/xingzhiblog-backend | Java后端：https://gitee.com/cyyqz/xingzhi-blog-backend   |
 | 后台前端：https://github.com/woquxunxian/xingzhiblog-admin   | 微信小程序端：https://gitee.com/cyyqz/xingzhi-blog-admin |
 
-##技术栈
+## 技术栈
 
 ### java后端
 

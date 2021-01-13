@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.service.wx;
+package com.xingzhi.xingzhiblog.service;
 
 import com.xingzhi.xingzhiblog.domain.dto.LoginDTO;
 import com.xingzhi.xingzhiblog.domain.vo.WxAccountVO;

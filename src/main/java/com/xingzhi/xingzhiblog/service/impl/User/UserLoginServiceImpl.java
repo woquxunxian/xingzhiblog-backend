@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.service.serviceimpl.User;
+package com.xingzhi.xingzhiblog.service.impl.User;
 
 import com.xingzhi.xingzhiblog.dao.user.UserLoginMapper;
 import com.xingzhi.xingzhiblog.domain.vo.UserListVO;

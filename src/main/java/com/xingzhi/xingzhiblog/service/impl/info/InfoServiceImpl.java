@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.service.serviceimpl.info;
+package com.xingzhi.xingzhiblog.service.impl.info;
 
 
 import com.xingzhi.xingzhiblog.dao.info.InfoMapper;

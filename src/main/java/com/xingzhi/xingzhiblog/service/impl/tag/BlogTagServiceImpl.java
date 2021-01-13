@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.service.serviceimpl.tag;
+package com.xingzhi.xingzhiblog.service.impl.tag;
 
 import com.xingzhi.xingzhiblog.dao.article.ArticleDetailMapper;
 import com.xingzhi.xingzhiblog.dao.tag.TagMapper;

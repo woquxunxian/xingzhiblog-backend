@@ -32,11 +32,12 @@
             id = #{id} AND is_valid = 1;
     </select>
 
-    <insert id="addWxLoginAcount">
+    <insert id="addWxLoginAccount" parameterType="WxAccountVO"
+            useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
             wx_user(union_id, open_id, nick_name, avatar, create_time, update_time)
         VALUES
-            (#{unionId}, #{openId}, #{nickName}, #{avatarUrl}, NOW(), NOW());
+            (#{unionId}, #{openId}, #{nickName}, #{avatar}, NOW(), NOW());
     </insert>
 
 </mapper>

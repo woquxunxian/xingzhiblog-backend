@@ -54,34 +54,8 @@ public class ArticleDetailController {
         return responseUtil.success(articleListVOList);
     }
 
-    @PutMapping("like/number")
-    @ApiOperation("通过文章id更新点赞数+1")
-    public ResponseObject updateLikeCountByBlogId(@RequestParam("blogId") Integer blogId, @RequestParam("userId") Integer userId) {
-        log.info("like---blogId:{}",blogId + "userId:{}",userId);
-        Integer updateStatus = articleDetailService.updateLikeCountByBlogId(blogId, userId);
-        ResponseUtil responseUtil = new ResponseUtil();
-        return responseUtil.success(updateStatus);
-    }
-
-    @GetMapping("like/status")
-    @ApiOperation("获取用户的点赞状态")
-    public ResponseObject getArticleLikeStatusByBlogIdAndUserId(Integer blogId, Integer userId) {
-        Integer updateStatus = articleDetailService.getArticleLikeStatusByBlogIdAndUserId(blogId, userId);
-        ResponseUtil responseUtil = new ResponseUtil();
-        return responseUtil.success(updateStatus);
-    }
-
-    @PutMapping("unlike/number")
-    @ApiOperation("通过文章id更新点赞数-1")
-    public ResponseObject updateMinusLikeCountByBlogId(@RequestParam("blogId") Integer blogId, @RequestParam("userId") Integer userId) {
-        log.info("unlike---blogId:{}",blogId + "userId:{}",userId);
-        Integer updateStatus = articleDetailService.updateMinusLikeCountByBlogId(blogId, userId);
-        ResponseUtil responseUtil = new ResponseUtil();
-        return responseUtil.success(updateStatus);
-    }
-
     @PutMapping("view/number")
-    @ApiOperation("通过文章id更新点赞数")
+    @ApiOperation("通过文章id更新阅读量")
     public ResponseObject updateViewCountByBlogId(Integer blogId) {
         Integer updateStatus = articleDetailService.updateViewCountByBlogId(blogId);
         ResponseUtil responseUtil = new ResponseUtil();

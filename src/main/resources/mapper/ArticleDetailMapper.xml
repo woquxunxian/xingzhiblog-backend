@@ -86,60 +86,11 @@
             ab.create_time DESC;
     </select>
 
-    <select id="getArticleLikeStatusByBlogIdAndUserId" resultType="java.lang.Integer">
-        SELECT
-            like_status
-        FROM
-            article_like
-        WHERE
-            type_id = #{blogId}
-            AND user_id = #{userId}
-            AND is_valid = 1;
-    </select>
-    
-    <update id="updateLikeCountByBlogId" parameterType="java.lang.Integer">
-        UPDATE article_blog
-        SET like_count = like_count + 1
-        WHERE
-            id = #{BlogId};
-    </update>
-
-    <select id="getUserArticleLikeRecord" resultType="java.lang.Integer">
-        SELECT
-            id
-        FROM
-            article_like
-        WHERE
-            user_id = #{userId}
-            AND type_id = #{blogId};
-    </select>
-
-    <update id="updateMinusLikeCountByBlogId">
-        UPDATE article_blog
-        SET like_count = like_count - 1
-        WHERE
-            id = #{blogId};
-    </update>
-
     <update id="updateViewCountByBlogId" parameterType="java.lang.Integer">
         UPDATE article_blog
         SET view_count = view_count + 1
         WHERE
             id = #{BlogId};
-    </update>
-
-    <insert id="addArticleLikeRecord">
-        INSERT INTO
-            article_like (type_id, user_id, like_status, like_type, create_time, update_time)
-        VALUES
-	        (#{blogId}, #{userId}, 1, 1, NOW(), NOW());
-    </insert>
-
-    <update id="updateArticleLikeStatus">
-        UPDATE article_like
-        SET like_status = #{likeStatus}
-        WHERE
-            type_id = #{blogId} AND user_id = #{userId};
     </update>
 
 </mapper>

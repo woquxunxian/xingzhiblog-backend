@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.service.serviceimpl.timeLine;
+package com.xingzhi.xingzhiblog.service.impl.timeLine;
 
 import com.xingzhi.xingzhiblog.dao.timeline.TimeLineMapper;
 import com.xingzhi.xingzhiblog.domain.vo.TimeLineVO;

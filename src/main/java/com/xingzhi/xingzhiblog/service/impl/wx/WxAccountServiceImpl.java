@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.service.wx.impl;
+package com.xingzhi.xingzhiblog.service.impl.wx;
 
 import cn.hutool.core.lang.UUID;
 import com.alibaba.fastjson.JSON;
@@ -11,7 +11,7 @@ import com.xingzhi.xingzhiblog.domain.dto.LoginDTO;
 import com.xingzhi.xingzhiblog.domain.dto.SessionDTO;
 import com.xingzhi.xingzhiblog.domain.vo.WxAccountVO;
 import com.xingzhi.xingzhiblog.exception.SystemException;
-import com.xingzhi.xingzhiblog.service.wx.WxAccountService;
+import com.xingzhi.xingzhiblog.service.WxAccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,14 +62,21 @@ public class WxAccountServiceImpl implements WxAccountService {
         WxAccountVO wxAccountVO = getWxAccountByOpenId(openId);
         log.info("wxLoginVO:{}", wxAccountVO);
         if (wxAccountVO == null) {
-            Integer id = wxAccountMapper.addWxLoginAcount(avatarUrl, nickName, openId, "null");
-            log.info("id:{}",id);
-//            if (id == null) throw new SystemException("系统出错");
             wxAccountVO = new WxAccountVO();
-            wxAccountVO.setAvatar(nickName);
-            wxAccountVO.setNickName(avatarUrl);
+            wxAccountVO.setAvatar(avatarUrl);
+            wxAccountVO.setNickName(nickName);
             wxAccountVO.setOpenId(openId);
-            wxAccountVO.setId(id);
+            wxAccountVO.setUnionId("null");
+//            Integer id = wxAccountMapper.addWxLoginAccount(avatarUrl, nickName, openId, "null");
+            Integer id = wxAccountMapper.addWxLoginAccount(wxAccountVO);
+            log.info("id:{}",id);
+            if (id == 1) return wxAccountVO;
+//            if (id == null) throw new SystemException("系统出错");
+//            wxAccountVO = new WxAccountVO();
+//            wxAccountVO.setAvatar(nickName);
+//            wxAccountVO.setNickName(avatarUrl);
+//            wxAccountVO.setOpenId(openId);
+//            wxAccountVO.setId(id);
         }
         return wxAccountVO;
     }

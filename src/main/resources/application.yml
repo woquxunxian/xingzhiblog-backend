@@ -1,9 +1,10 @@
 server:
   port: 8081
   ssl:
-    key-store: classpath:xxxxxx
-    key-store-password: xxxxxx
+    key-store: classpath:xxxxxxxx
+    key-store-password: xxxxxxxxx
     key-store-type: JKS
+
 spring:
   #应用
   application:
@@ -12,12 +13,9 @@ spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mini_blog?useUnicode=true&characterEncoding=UTF-8&serverTimezone = Asia/Shanghai
-    username: root
-    password: root
+#    username: root
+#    password: root
 #    connectionInitSqls: ["set names utf8mb4;"]
-    #远程
-#    username: mini_blog
-#    password: xingzhiblog
     initialSize: 10
     minIdle: 3
     maxActive: 200

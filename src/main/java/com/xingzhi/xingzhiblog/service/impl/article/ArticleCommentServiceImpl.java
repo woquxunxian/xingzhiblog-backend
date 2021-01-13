@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.service.serviceimpl.article;
+package com.xingzhi.xingzhiblog.service.impl.article;
 
 import com.xingzhi.xingzhiblog.dao.article.ArticleCommentMapper;
 import com.xingzhi.xingzhiblog.dao.wx.WxAccountMapper;

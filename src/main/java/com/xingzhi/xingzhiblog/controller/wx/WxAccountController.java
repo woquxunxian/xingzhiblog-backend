@@ -3,7 +3,7 @@ package com.xingzhi.xingzhiblog.controller.wx;
 import com.xingzhi.xingzhiblog.common.result.ResponseObject;
 import com.xingzhi.xingzhiblog.common.result.ResponseUtil;
 import com.xingzhi.xingzhiblog.domain.dto.LoginDTO;
-import com.xingzhi.xingzhiblog.service.wx.WxAccountService;
+import com.xingzhi.xingzhiblog.service.WxAccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
