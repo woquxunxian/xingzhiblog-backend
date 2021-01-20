@@ -1,7 +1,5 @@
 package com.xingzhi.xingzhiblog.common.result;
 
-import com.xingzhi.xingzhiblog.common.enums.ResultCode;
-
 /**
  * @program: xingzhiblog
  * @description: 统一结果返回方法封装

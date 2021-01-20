@@ -6,9 +6,11 @@ import com.xingzhi.xingzhiblog.domain.vo.ArticleListVO;
 import com.xingzhi.xingzhiblog.domain.vo.TagVO;
 import com.xingzhi.xingzhiblog.exception.SystemException;
 import com.xingzhi.xingzhiblog.service.TagService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,7 +20,9 @@ import java.util.List;
  * @author: 行之
  * @create: 2020-12-27 23:47
  **/
+@Slf4j
 @Service
+@Transactional
 public class BlogTagServiceImpl implements TagService {
 
     @Autowired

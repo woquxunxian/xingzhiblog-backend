@@ -1,5 +1,6 @@
 package com.xingzhi.xingzhiblog.service;
 
+import com.xingzhi.xingzhiblog.domain.vo.UserInfoVO;
 import com.xingzhi.xingzhiblog.domain.vo.UserListVO;
 import com.xingzhi.xingzhiblog.domain.vo.UserLoginVO;
 
@@ -11,4 +12,9 @@ import com.xingzhi.xingzhiblog.domain.vo.UserLoginVO;
  **/
 public interface UserLoginService {
     UserListVO userLogin(UserLoginVO userLoginVO);
+
+    UserLoginVO getUserLoginVOByUserName(String userName);
+
+    UserInfoVO getUserInfoVOByUserName(String userName);
+
 }

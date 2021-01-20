@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @program: xingzhiblog
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
  **/
 @Slf4j
 @Service
+@Transactional
 public class InfoServiceImpl implements InfoService {
 
     @Autowired

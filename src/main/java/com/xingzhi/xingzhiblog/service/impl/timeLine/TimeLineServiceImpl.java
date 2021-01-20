@@ -3,8 +3,10 @@ package com.xingzhi.xingzhiblog.service.impl.timeLine;
 import com.xingzhi.xingzhiblog.dao.timeline.TimeLineMapper;
 import com.xingzhi.xingzhiblog.domain.vo.TimeLineVO;
 import com.xingzhi.xingzhiblog.service.TimeLineService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -15,7 +17,9 @@ import java.util.Map.Entry;
  * @author: 行之
  * @create: 2021-01-09 17:30
  **/
+@Slf4j
 @Service
+@Transactional
 public class TimeLineServiceImpl implements TimeLineService {
 
     @Autowired

@@ -7,6 +7,7 @@ import com.xingzhi.xingzhiblog.common.result.ResponseUtil;
 import com.xingzhi.xingzhiblog.service.InfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ public class InfoController {
 
     @GetMapping("all")
     @ApiOperation("通过作者信息")
+    @RequiresPermissions("/info")
     public ResponseObject getAllInfoById() {
         InfoVO infoVO = infoService.getInfo();
         ResponseUtil res = new ResponseUtil();

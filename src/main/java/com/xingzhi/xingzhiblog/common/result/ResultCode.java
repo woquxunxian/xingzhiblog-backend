@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.common.enums;
+package com.xingzhi.xingzhiblog.common.result;
 
 import java.util.HashMap;
 import java.util.Map;

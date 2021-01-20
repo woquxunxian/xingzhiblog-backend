@@ -7,16 +7,14 @@ import org.apache.ibatis.type.Alias;
 
 /**
  * @program: xingzhiblog
- * @description: 用户登录信息视图类
+ * @description:
  * @author: 行之
- * @create: 2020-12-28 23:31
+ * @create: 2021-01-19 11:34
  **/
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Alias("UserListVO")
-public class UserListVO {
-    String userName;
-    String avatar;
-    String token;
+@AllArgsConstructor
+@Alias("PermissionVO")
+public class PermissionVO {
+    String permissionName;
 }

@@ -5,9 +5,11 @@ import com.xingzhi.xingzhiblog.dao.wx.WxAccountMapper;
 import com.xingzhi.xingzhiblog.domain.vo.ArticleCommentVO;
 import com.xingzhi.xingzhiblog.domain.vo.WxAccountVO;
 import com.xingzhi.xingzhiblog.service.ArticleCommentService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,7 +19,9 @@ import java.util.List;
  * @author: 行之
  * @create: 2021-01-02 19:25
  **/
+@Slf4j
 @Service
+@Transactional
 public class ArticleCommentServiceImpl implements ArticleCommentService {
 
     @Autowired

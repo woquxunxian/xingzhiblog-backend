@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.domain.vo;
+package com.xingzhi.xingzhiblog.domain.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,16 +7,15 @@ import org.apache.ibatis.type.Alias;
 
 /**
  * @program: xingzhiblog
- * @description: 用户登录信息视图类
+ * @description:
  * @author: 行之
- * @create: 2020-12-28 23:31
+ * @create: 2021-01-19 10:51
  **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Alias("UserListVO")
-public class UserListVO {
-    String userName;
-    String avatar;
-    String token;
+@Alias("Permission")
+public class Permission {
+    private Integer id;
+    private String permissionUrl;
 }

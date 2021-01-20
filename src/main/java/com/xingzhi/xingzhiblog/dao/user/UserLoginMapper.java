@@ -1,9 +1,14 @@
 package com.xingzhi.xingzhiblog.dao.user;
 
+import com.xingzhi.xingzhiblog.domain.entity.Permission;
+import com.xingzhi.xingzhiblog.domain.entity.Role;
 import com.xingzhi.xingzhiblog.domain.entity.UserInfo;
+import com.xingzhi.xingzhiblog.domain.vo.UserInfoVO;
 import com.xingzhi.xingzhiblog.domain.vo.UserListVO;
 import com.xingzhi.xingzhiblog.domain.vo.UserLoginVO;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @program: xingzhiblog
@@ -24,5 +29,15 @@ public interface UserLoginMapper {
     UserListVO getUserInfoByUserId(int userId);
 
     Integer userLoginForm(UserLoginVO userLoginVO);
+
+    UserLoginVO getUserLoginVOByUserName(String userName);
+
+    UserInfoVO getUserInfoVOByUserName(String userName);
+
+//    Integer getUserIdByUserName(String userName);
+
+    List<Role> getUseRoleByUserId(int userId);
+
+    List<Permission> getRolePermissionByRoleId(int roleId);
 
 }

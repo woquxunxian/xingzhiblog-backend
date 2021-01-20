@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @program: xingzhiblog
@@ -13,8 +14,9 @@ import org.springframework.stereotype.Service;
  * @author: 行之
  * @create: 2021-01-13 21:16
  **/
-@Service
 @Slf4j
+@Service
+@Transactional
 public class ArticleLikeServiceImpl implements ArticleLikeService {
 
     @Autowired

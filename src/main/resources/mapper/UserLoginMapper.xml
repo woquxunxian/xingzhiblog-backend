@@ -6,12 +6,65 @@
         <result property="avatar" column="avatar"/>
     </resultMap>
 
+    <resultMap id="userLoginVoResultMap" type="UserLoginVO">
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+    <resultMap id="roleResultMap" type="Role">
+        <id property="id" column="id"/>
+        <result property="roleName" column="role_name"/>
+    </resultMap>
+
+    <resultMap id="PermissionResultMap" type="Permission">
+        <result property="id" column="id"/>
+        <result property="permissionUrl" column="permission_url"/>
+    </resultMap>
+
+    <resultMap id="userInfoVoResultMap" type="UserInfoVO">
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="avatar" column="avatar"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+    </resultMap>
+
     <select id="getUserInfoByUserId" parameterType="java.lang.Integer" resultMap="userListVoResultMap">
         select nick_name, avatar from admin_info WHERE user_id = #{id};
     </select>
 
     <select id="userLoginForm" parameterType="UserLoginVO" resultType="java.lang.Integer">
         SELECT id from admin_login WHERE user_name = #{userName} AND password = #{password};
+    </select>
+
+    <select id="getUserLoginVOByUserName" resultMap="userLoginVoResultMap">
+        SELECT user_name, password from admin_login WHERE user_name = #{userName};
+    </select>
+
+    <select id="getUserInfoVOByUserName" resultMap="userInfoVoResultMap">
+        SELECT user_id, nick_name, avatar, email, phone from admin_info WHERE nick_name = #{userName};
+    </select>
+
+<!--    <select id="getUserIdByUserName" resultType="UserInfoVO">-->
+<!--        SELECT user_id, avatar, phone, email  from admin_login WHERE user_name = #{userName};-->
+<!--    </select>-->
+
+    <select id="getUseRoleByUserId" resultMap="roleResultMap">
+        SELECT
+            id, role_name
+        FROM
+            admin_role
+        WHERE
+            id IN ( SELECT role_id FROM admin_user_role WHERE admin_id = #{userId});
+    </select>
+
+    <select id="getRolePermissionByRoleId" resultMap="PermissionResultMap">
+        SELECT
+            id, permission_url
+        FROM
+            admin_permission
+        WHERE
+            id IN ( SELECT permission_id FROM admin_role_permission WHERE role_id = #{roleId} );
     </select>
 
 </mapper>

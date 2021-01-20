@@ -1,7 +1,5 @@
 package com.xingzhi.xingzhiblog.common.result;
 
-import com.xingzhi.xingzhiblog.common.enums.ResultCode;
-
 import java.io.Serializable;
 
 /**

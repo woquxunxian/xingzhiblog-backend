@@ -5,10 +5,12 @@ import com.xingzhi.xingzhiblog.domain.vo.ArticleDetailVO;
 import com.xingzhi.xingzhiblog.domain.vo.ArticleListVO;
 import com.xingzhi.xingzhiblog.service.ArticleCommentService;
 import com.xingzhi.xingzhiblog.service.ArticleDetailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,7 +20,9 @@ import java.util.List;
  * @author: 行之
  * @create: 2020-12-30 16:58
  **/
+@Slf4j
 @Service
+@Transactional
 public class ArticleDetailServiceImpl implements ArticleDetailService {
 
     @Autowired
