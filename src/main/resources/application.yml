@@ -1,9 +1,5 @@
 server:
   port: 8081
-  ssl:
-    key-store: classpath:xxxxxxxx
-    key-store-password: xxxxxxxxx
-    key-store-type: JKS
 
 spring:
   #应用
@@ -13,8 +9,8 @@ spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mini_blog?useUnicode=true&characterEncoding=UTF-8&serverTimezone = Asia/Shanghai
-#    username: root
-#    password: root
+    username: root
+    password: root
 #    connectionInitSqls: ["set names utf8mb4;"]
     initialSize: 10
     minIdle: 3
@@ -85,6 +81,9 @@ pagehelper:
 #微信相关数据
 wx:
   appid: wxbd089ec7a8b57fc2
-  secret: xxxxxxxxxxxxx
+
+
+jwt:
+  auth: true
 
 debug: true
