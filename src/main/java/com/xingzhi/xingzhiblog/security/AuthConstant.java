@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.common.security;
+package com.xingzhi.xingzhiblog.security;
 
 /**
  * @program: xingzhiblog

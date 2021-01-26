@@ -1,8 +1,8 @@
 package com.xingzhi.xingzhiblog.service.impl.User;
 
-import com.xingzhi.xingzhiblog.common.security.AuthConstant;
-import com.xingzhi.xingzhiblog.common.security.AuthTokenVO;
-import com.xingzhi.xingzhiblog.common.security.JwtAuthenticator;
+import com.xingzhi.xingzhiblog.security.AuthConstant;
+import com.xingzhi.xingzhiblog.security.AuthTokenVO;
+import com.xingzhi.xingzhiblog.security.JwtAuthenticator;
 import com.xingzhi.xingzhiblog.dao.user.UserLoginMapper;
 import com.xingzhi.xingzhiblog.domain.entity.Permission;
 import com.xingzhi.xingzhiblog.domain.entity.Role;

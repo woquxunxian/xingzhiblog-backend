@@ -1,8 +1,7 @@
-package com.xingzhi.xingzhiblog.common.security;
+package com.xingzhi.xingzhiblog.security;
 
 import cn.hutool.core.util.StrUtil;
 import com.xingzhi.xingzhiblog.domain.entity.Permission;
-import com.xingzhi.xingzhiblog.domain.vo.PermissionVO;
 import com.xingzhi.xingzhiblog.domain.vo.RoleVO;
 import com.xingzhi.xingzhiblog.domain.vo.UserInfoVO;
 import com.xingzhi.xingzhiblog.domain.vo.UserLoginVO;

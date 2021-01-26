@@ -63,4 +63,13 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
         return updateCommentCountStatus;
     }
 
+    @Override
+    @CacheEvict(value = "articleList", allEntries=true)
+    public Integer addArticleSonComment(String content, int userId, int blogId, int parentCommentId) {
+        Integer insertCommentStatus = articleCommentMapper.addArticleSonComment(content, userId, blogId, parentCommentId);
+        if (insertCommentStatus == 0) return insertCommentStatus;
+        Integer updateCommentCountStatus = articleCommentMapper.updateArticleCommentCountByBlogId(blogId);
+        return updateCommentCountStatus;
+    }
+
 }

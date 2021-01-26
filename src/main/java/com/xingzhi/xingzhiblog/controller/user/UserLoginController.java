@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/user")
 @Api(tags="用户相关操作")
-@CrossOrigin(origins = "*",maxAge = 3600)
 public class UserLoginController {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.common.aspect;
+package com.xingzhi.xingzhiblog.aspect;
 
 import com.xingzhi.xingzhiblog.common.result.RequestLog;
 import lombok.extern.slf4j.Slf4j;

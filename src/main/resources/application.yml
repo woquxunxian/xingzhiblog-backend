@@ -1,6 +1,7 @@
 server:
   port: 8081
 
+
 spring:
   #应用
   application:
@@ -81,7 +82,7 @@ pagehelper:
 #微信相关数据
 wx:
   appid: wxbd089ec7a8b57fc2
-
+  secret: your secretkey
 
 jwt:
   auth: true

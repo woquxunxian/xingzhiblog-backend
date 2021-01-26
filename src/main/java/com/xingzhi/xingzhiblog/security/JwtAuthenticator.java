@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.common.security;
+package com.xingzhi.xingzhiblog.security;
 
 import cn.hutool.core.util.StrUtil;
 import com.auth0.jwt.JWT;

@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.xingzhi.xingzhiblog.common.util.AesCbcUtil;
 import com.xingzhi.xingzhiblog.common.util.QiNiuCloudImgUtil;
-import com.xingzhi.xingzhiblog.common.wx.WxAdapter;
+import com.xingzhi.xingzhiblog.wx.WxAdapter;
 import com.xingzhi.xingzhiblog.dao.wx.WxAccountMapper;
 import com.xingzhi.xingzhiblog.domain.dto.LoginDTO;
 import com.xingzhi.xingzhiblog.domain.dto.SessionDTO;

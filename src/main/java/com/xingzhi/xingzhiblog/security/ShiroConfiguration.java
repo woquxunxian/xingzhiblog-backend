@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.common.security;
+package com.xingzhi.xingzhiblog.security;
 
 /**
  * @program: xingzhiblog
@@ -42,11 +42,27 @@ public class ShiroConfiguration {
         Map<String, Filter> filters = new HashMap<>();
         filters.put("auth", new AuthFilter());
         shiroFilterFactoryBean.setFilters(filters);
-        Map<String, String> filterMap = new LinkedHashMap<>();
+        LinkedHashMap<String, String> filterMap = new LinkedHashMap<>();
+        // 查询接口放行
         filterMap.put("/api/user/login", "anon");
+        filterMap.put("/api/info/all", "anon");
+        filterMap.put("/api/timeline/all", "anon");
+        filterMap.put("/api/wx/login", "anon");
+        filterMap.put("/api/article/all", "anon");
+        filterMap.put("/api/article/comment/**", "anon");
+        filterMap.put("/api/article/comment/parent", "anon"); // 1
+        filterMap.put("/api/article/content", "anon");
+        filterMap.put("/api/article/like/number", "anon"); // 1
+        filterMap.put("/api/article/like/status", "anon");
+        filterMap.put("/api/article/search", "anon");
+        filterMap.put("/api/article/unlike/number", "anon"); // 1
+        filterMap.put("/api/article/view/number", "anon");
+        filterMap.put("/api/tag/**", "anon");
+        // swagger接口文档放行
         filterMap.put("/swagger-ui/**", "anon");
         filterMap.put("/swagger-resources/**", "anon");
         filterMap.put("/v3/api-docs/**", "anon");
+        // druid数据源放行
         filterMap.put("/druid/**", "anon");
         filterMap.put("/**", openAuth);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);

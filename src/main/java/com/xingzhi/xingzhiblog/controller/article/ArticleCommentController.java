@@ -41,4 +41,12 @@ public class ArticleCommentController {
         return responseUtil.success(status);
     };
 
+    @GetMapping("comment/son")
+    @ApiOperation("添加文章子评论")
+    public ResponseObject getArticleCommentByBlogId(String content, int userId, int blogId, int parentCommentId) {
+        ResponseUtil responseUtil = new ResponseUtil();
+        Integer status = articleCommentService.addArticleSonComment(content, userId, blogId, parentCommentId);
+        return responseUtil.success(status);
+    };
+
 }

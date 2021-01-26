@@ -23,4 +23,6 @@ public interface ArticleCommentMapper {
 
     Integer updateArticleCommentCountByBlogId(int blogId);
 
+    Integer addArticleSonComment(String content, int userId, int blogId, int parentCommentId);
+
 }

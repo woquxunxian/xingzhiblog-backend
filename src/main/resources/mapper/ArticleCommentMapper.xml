@@ -39,6 +39,13 @@
             (#{content}, #{userId}, -1, #{blogId}, NOW(), NOW());
     </insert>
 
+    <insert id="addArticleSonComment" parameterType="ArticleCommentVO">
+        INSERT INTO
+            article_comment(comment_content, user_id, parent_id, article_id, create_time, update_time)
+        VALUES
+            (#{content}, #{userId}, #{parentCommentId}, #{blogId}, NOW(), NOW());
+    </insert>
+
     <update id="updateArticleCommentCountByBlogId">
         UPDATE
             article_blog
