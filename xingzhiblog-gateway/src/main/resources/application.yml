@@ -1,0 +1,48 @@
+server:
+  port: 88
+  ssl:
+    enabled: true
+    key-store-password: qingpingyue
+    key-store: classpath:qingpingyue.top.jks
+    key-store-type: JKS
+spring:
+  # spring cloud
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      httpclient:
+        ssl:
+          useInsecureTrustManager: true
+      routes:
+        # 信息管理服务模块路由
+        - id: info_route
+          uri: lb://xingzhiblog-info
+          predicates:
+            - Path=/api/info/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        # 信息管理服务模块路由
+        - id: info_swagger_route
+          uri: lb://xingzhiblog-info
+          predicates:
+            - Path=/info/swagger/**
+          filters:
+            - RewritePath=/info/(?<segment>.*),/swagger-ui/#/$\{segment}
+        # 三方服务
+        - id: third_party_route
+          uri: lb://gulimail4learn-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>.*),/$\{segment}
+        # 后台服务
+        - id: admin_route
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+  application:
+    name: xingzhiblog-gateway
