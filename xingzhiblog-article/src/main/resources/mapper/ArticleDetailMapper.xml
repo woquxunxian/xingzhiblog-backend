@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingzhi.xingzhiblog.article.dao.ArticleDetailMapper">
+
+    <resultMap id="articleListVOResultMap" type="ArticleListVO">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="image" column="image"/>
+        <result property="brief" column="brief"/>
+        <result property="likeCount" column="like_count"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="createTime" column="create_time"/>
+        <association property="userListVo" javaType="UserListVO">
+            <result property="userName" column="nick_name"/>
+            <result property="avatar" column="avatar"/>
+        </association>
+        <collection property="tagDtoList" ofType="TagDTO" resultMap="tagDtoListMapResult"/>
+    </resultMap>
+
+    <resultMap id="tagDtoListMapResult" type="TagDTO">
+        <result property="tagName" column="tag_name"/>
+        <result property="color" column="color"/>
+    </resultMap>
+    
+    <resultMap id="articleContent" type="ArticleDetailVO">
+        <result property="articleContent" column="article_content"/>
+    </resultMap>
+
+
+    <sql id="articleListVOFlied">
+        ab.id, ab.title, ab.image, ab.brief, ab.like_count, ab.comment_count, ab.view_count, ab.create_time, atag.tag_name, atag.color
+--         al.nick_name, al.avatar
+    </sql>
+
+    <select id="getALlArticle" resultMap="articleListVOResultMap">
+        SELECT
+            <include refid="articleListVOFlied"/>
+        FROM
+            article_blog ab
+            LEFT JOIN article_detail ad ON ab.id = ad.blog_id
+--             LEFT JOIN admin_info al ON ab.admin_info_id = al.id
+            LEFT JOIN article_blog_tag abt ON ab.id = abt.blog_id
+            LEFT JOIN article_tag atag ON atag.id = abt.tag_id
+        WHERE
+            ab.is_valid = 1
+        ORDER BY
+            ab.view_count DESC;
+    </select>
+    
+    <select id="getArticleContentByBlogId" resultMap="articleContent">
+        SELECT
+	        article_content
+        FROM
+	        article_detail
+        WHERE
+	        blog_id = #{blogId};
+    </select>
+    
+    <select id="getArticleBySearchWithTitle" parameterType="java.lang.String" resultMap="articleListVOResultMap">
+        SELECT
+            <include refid="articleListVOFlied"/>
+        FROM
+            article_blog ab
+            LEFT JOIN article_detail ad ON ab.id = ad.blog_id
+--             LEFT JOIN admin_info al ON ab.admin_info_id = al.id
+            LEFT JOIN article_blog_tag abt ON ab.id = abt.blog_id
+            LEFT JOIN article_tag atag ON atag.id = abt.tag_id
+        WHERE
+            ab.title LIKE CONCAT('%',#{articleTitle},'%') AND ab.is_valid = 1
+        ORDER BY
+            ab.create_time DESC;
+    </select>
+
+    <select id="getArticleByTagName" parameterType="java.lang.String" resultMap="articleListVOResultMap">
+        SELECT
+            <include refid="articleListVOFlied"/>
+        FROM
+            article_blog ab
+            LEFT JOIN article_detail ad ON ab.id = ad.blog_id
+--             LEFT JOIN admin_info al ON ab.admin_info_id = al.id
+            LEFT JOIN article_blog_tag abt ON ab.id = abt.blog_id
+            LEFT JOIN article_tag atag ON atag.id = abt.tag_id
+        WHERE
+            atag.tag_name = #{articleTagName} AND ab.is_valid = 1
+        ORDER BY
+            ab.create_time DESC;
+    </select>
+
+    <update id="updateViewCountByBlogId" parameterType="java.lang.Integer">
+        UPDATE article_blog
+        SET view_count = view_count + 1
+        WHERE
+            id = #{BlogId};
+    </update>
+
+</mapper>

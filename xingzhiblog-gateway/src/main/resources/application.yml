@@ -16,30 +16,52 @@ spring:
         ssl:
           useInsecureTrustManager: true
       routes:
-        # 信息管理服务模块路由
+        # 前台信息服务模块路由
         - id: info_route
           uri: lb://xingzhiblog-info
           predicates:
             - Path=/api/info/**
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
-        # 信息管理服务模块路由
+        # 前台信息服务接口文档路由
         - id: info_swagger_route
           uri: lb://xingzhiblog-info
           predicates:
             - Path=/info/swagger/**
           filters:
-            - RewritePath=/info/(?<segment>.*),/swagger-ui/#/$\{segment}
-        # 三方服务
-        - id: third_party_route
-          uri: lb://gulimail4learn-third-party
+            - RewritePath=/info/swagger/(?<segment>.*),/swagger-ui/#/$\{segment}
+        # 前台用户服务模块路由
+        - id: user_route
+          uri: lb://xingzhiblog-user
           predicates:
-            - Path=/api/thirdparty/**
+            - Path=/api/user/**
           filters:
-            - RewritePath=/api/thirdparty/(?<segment>.*),/$\{segment}
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        # 前台用户服务接口文档路由
+        - id: user_swagger_route
+          uri: lb://xingzhiblog-user
+          predicates:
+            - Path=/user/swagger/**
+          filters:
+            - RewritePath=/user/swagger/(?<segment>.*),/swagger-ui/#/$\{segment}
+        # 前台文章服务模块路由
+        - id: article_route
+          uri: lb://xingzhiblog-article
+          predicates:
+            - Path=/api/article/**
+            - Path=/api/tag/**
+          filters:
+            - RewritePath=/api/(?<segment>.*),/$\{segment}
+        # 前台文章服务接口文档路由
+        - id: article_swagger_route
+          uri: lb://xingzhiblog-article
+          predicates:
+            - Path=/article/swagger/**
+          filters:
+            - RewritePath=/article/swagger/(?<segment>.*),/swagger-ui/#/$\{segment}
         # 后台服务
         - id: admin_route
-          uri: lb://renren-fast
+          uri: lb://xingzhiblog-admin
           predicates:
             - Path=/api/**
           filters:

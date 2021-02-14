@@ -10,6 +10,9 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/xingzhiblog-gateway/pom.xml" />
         <option value="$PROJECT_DIR$/xingzhiblog-info/pom.xml" />
+        <option value="$PROJECT_DIR$/xingzhiblog-article/pom.xml" />
+        <option value="$PROJECT_DIR$/xingzhiblog-user/pom.xml" />
+        <option value="$PROJECT_DIR$/xingzhiblog-admin/pom.xml" />
       </list>
     </option>
   </component>

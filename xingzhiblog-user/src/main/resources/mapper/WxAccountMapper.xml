@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingzhi.xingzhiblog.user.dao.WxAccountMapper">
+
+    <resultMap id="wxLoginVOResultMap" type="WxAccountVO">
+        <id property="id" column="id"/>
+        <result property="openId" column="open_id"/>
+        <result property="avatar" column="avatar"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="unionId" column="union_id"/>
+    </resultMap>
+
+    <sql id="wxLoginVOFiled">
+        id, open_id, avatar, nick_name, union_id
+    </sql>
+
+    <select id="getWxAccountByOpenId" resultMap="wxLoginVOResultMap">
+        SELECT
+            <include refid="wxLoginVOFiled"/>
+        FROM
+            wx_user
+        WHERE
+            open_id = #{openId} AND is_valid = 1;
+    </select>
+
+    <select id="getWxAccountById" resultMap="wxLoginVOResultMap">
+        SELECT
+            <include refid="wxLoginVOFiled"/>
+        FROM
+            wx_user
+        WHERE
+            id = #{id} AND is_valid = 1;
+    </select>
+
+    <insert id="addWxLoginAccount" parameterType="WxAccountVO"
+            useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+            wx_user(union_id, open_id, nick_name, avatar, create_time, update_time)
+        VALUES
+            (#{unionId}, #{openId}, #{nickName}, #{avatar}, NOW(), NOW());
+    </insert>
+
+</mapper>

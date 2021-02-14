@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingzhi.xingzhiblog.article.dao.ArticleCommentMapper">
+
+    <!-- 文章id相关所有评论查询 -->
+    <resultMap id="articleCommentVOResultMap" type="ArticleCommentVO">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="commentContent" column="comment_content"/>
+    </resultMap>
+
+    <!-- 文章id相关所有子评论查询 -->
+    <resultMap id="articleChildrenComment" type="ArticleCommentVO">
+        <result property="userId" column="user_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="commentContent" column="comment_content"/>
+    </resultMap>
+
+
+    <select id="getArticleParentCommentByBlogId" resultMap="articleCommentVOResultMap">
+        SELECT id, comment_content, create_time, user_id, parent_id
+        from article_comment
+        WHERE article_id = #{blogId} AND parent_id = #{parentId}
+        ORDER BY create_time DESC;
+    </select>
+
+    <select id="getArticleChildrenCommentByCommentId" resultMap="articleChildrenComment">
+        SELECT comment_content, create_time, user_id
+        from article_comment
+        WHERE parent_id = #{commentId}
+        ORDER BY create_time DESC;
+    </select>
+
+    <insert id="addArticleParentComment" parameterType="ArticleCommentVO">
+        INSERT INTO
+            article_comment(comment_content, user_id, parent_id, article_id, create_time, update_time)
+        VALUES
+            (#{content}, #{userId}, -1, #{blogId}, NOW(), NOW());
+    </insert>
+
+    <insert id="addArticleSonComment" parameterType="ArticleCommentVO">
+        INSERT INTO
+            article_comment(comment_content, user_id, parent_id, article_id, create_time, update_time)
+        VALUES
+            (#{content}, #{userId}, #{parentCommentId}, #{blogId}, NOW(), NOW());
+    </insert>
+
+    <update id="updateArticleCommentCountByBlogId">
+        UPDATE
+            article_blog
+        SET
+            comment_count = comment_count + 1
+        WHERE
+            id = #{blogId};
+    </update>
+
+</mapper>

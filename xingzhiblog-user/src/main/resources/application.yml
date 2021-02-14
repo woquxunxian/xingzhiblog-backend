@@ -1,0 +1,75 @@
+server:
+  port: 8000
+#  ssl:
+#    key-store: classpath:qingpingyue.top.jks
+#    key-store-password: qingpingyue
+#    key-store-type: JKS
+
+spring:
+  #应用
+  application:
+    name: xingzhiblog-user
+  #数据库
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/xingzhiblog_user?useUnicode=true&characterEncoding=UTF-8&serverTimezone = Asia/Shanghai
+    username: root
+    password: root
+    # 远程
+#    username: mini_blog
+#    password: xingzhiblog
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+#  devtools:
+#    restart:
+#      enabled: true  #设置开启热部署
+  # redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 0
+    timeout: 1800000
+    lettuce:
+      pool:
+        max-active: 20
+        #最大阻塞等待时间（负数表示没限制）
+        max-wait: -1
+        max-idle: 5
+        min-idle: 0
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+#mybatis配置
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.xingzhi.xingzhiblog.user.domain
+
+# 日志配置
+#logging:
+#  level:
+#    com.xingzhi: debug
+#    org.springframework: WARN
+#    org.spring.springboot.dao: debug
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %5p [%15.15t] %-40.40c{1.} [%X{user}] : %m%n%xwEx"
+#  file:
+#    path: /log/xingzhiblog.log
+
+#pageHelper分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+#微信相关数据
+wx:
+  appid: wxbd089ec7a8b57fc2
+  secret: xxx
+
+debug: true

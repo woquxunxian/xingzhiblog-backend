@@ -15,6 +15,9 @@
         <module>xingzhiblog-common</module>
         <module>xingzhiblog-gateway</module>
         <module>xingzhiblog-info</module>
+        <module>xingzhiblog-article</module>
+        <module>xingzhiblog-user</module>
+        <module>xingzhiblog-admin</module>
     </modules>
 
 

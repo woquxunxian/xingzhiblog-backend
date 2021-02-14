@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xingzhi.xingzhiblog.article.dao.ArticleLikeMapper">
+    <select id="getArticleLikeStatusByBlogIdAndUserId" resultType="java.lang.Integer">
+        SELECT
+            like_status
+        FROM
+            article_like
+        WHERE
+            type_id = #{blogId}
+            AND user_id = #{userId}
+            AND is_valid = 1;
+    </select>
+
+    <update id="updateLikeCountByBlogId" parameterType="java.lang.Integer">
+        UPDATE article_blog
+        SET like_count = like_count + 1
+        WHERE
+            id = #{BlogId};
+    </update>
+
+    <select id="getUserArticleLikeRecord" resultType="java.lang.Integer">
+        SELECT
+            id
+        FROM
+            article_like
+        WHERE
+            user_id = #{userId}
+            AND type_id = #{blogId};
+    </select>
+
+    <update id="updateMinusLikeCountByBlogId">
+        UPDATE article_blog
+        SET like_count = like_count - 1
+        WHERE
+            id = #{blogId};
+    </update>
+
+    <insert id="addArticleLikeRecord">
+        INSERT INTO
+            article_like (type_id, user_id, like_status, like_type, create_time, update_time)
+        VALUES
+	        (#{blogId}, #{userId}, 1, 1, NOW(), NOW());
+    </insert>
+
+    <update id="updateArticleLikeStatus">
+        UPDATE article_like
+        SET like_status = #{likeStatus}
+        WHERE
+            type_id = #{blogId} AND user_id = #{userId};
+    </update>
+
+</mapper>

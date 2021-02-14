@@ -6,10 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="xingzhiblog-info" />
         <module name="xingzhiblog-gateway" />
         <module name="xingzhiblog-common" />
+        <module name="xingzhiblog-article" />
+        <module name="xingzhiblog-admin" />
+        <module name="xingzhiblog-info" />
+        <module name="xingzhiblog-user" />
       </profile>
     </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="xingzhiblog-admin" options="-parameters" />
+    </option>
   </component>
 </project>
