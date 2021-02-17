@@ -19,7 +19,7 @@ import java.util.List;
  * @create: 2021-01-09 17:41
  **/
 @RestController
-@RequestMapping("api/timeline")
+@RequestMapping("timeline")
 @Api(tags="归档相关操作")
 public class TimeLineController {
 

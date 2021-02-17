@@ -16,7 +16,7 @@
         UPDATE article_blog
         SET like_count = like_count + 1
         WHERE
-            id = #{BlogId};
+            id = #{blogId};
     </update>
 
     <select id="getUserArticleLikeRecord" resultType="java.lang.Integer">

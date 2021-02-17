@@ -1,10 +1,10 @@
 server:
   port: 88
-  ssl:
-    enabled: true
-    key-store-password: qingpingyue
-    key-store: classpath:qingpingyue.top.jks
-    key-store-type: JKS
+#  ssl:
+#    enabled: true
+#    key-store-password: qingpingyue
+#    key-store: classpath:qingpingyue.top.jks
+#    key-store-type: JKS
 spring:
   # spring cloud
   cloud:
@@ -23,13 +23,6 @@ spring:
             - Path=/api/info/**
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
-        # 前台信息服务接口文档路由
-        - id: info_swagger_route
-          uri: lb://xingzhiblog-info
-          predicates:
-            - Path=/info/swagger/**
-          filters:
-            - RewritePath=/info/swagger/(?<segment>.*),/swagger-ui/#/$\{segment}
         # 前台用户服务模块路由
         - id: user_route
           uri: lb://xingzhiblog-user
@@ -37,34 +30,19 @@ spring:
             - Path=/api/user/**
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
-        # 前台用户服务接口文档路由
-        - id: user_swagger_route
-          uri: lb://xingzhiblog-user
-          predicates:
-            - Path=/user/swagger/**
-          filters:
-            - RewritePath=/user/swagger/(?<segment>.*),/swagger-ui/#/$\{segment}
         # 前台文章服务模块路由
         - id: article_route
           uri: lb://xingzhiblog-article
           predicates:
-            - Path=/api/article/**
-            - Path=/api/tag/**
+            - Path=/api/article/**,/api/tag/**,/api/timeline/**
           filters:
             - RewritePath=/api/(?<segment>.*),/$\{segment}
-        # 前台文章服务接口文档路由
-        - id: article_swagger_route
-          uri: lb://xingzhiblog-article
-          predicates:
-            - Path=/article/swagger/**
-          filters:
-            - RewritePath=/article/swagger/(?<segment>.*),/swagger-ui/#/$\{segment}
         # 后台服务
         - id: admin_route
           uri: lb://xingzhiblog-admin
           predicates:
             - Path=/api/**
           filters:
-            - RewritePath=/api/(?<segment>.*),/renren-fast/$\{segment}
+            - RewritePath=/api/(?<segment>.*),/xingzhiblog-admin/$\{segment}
   application:
     name: xingzhiblog-gateway

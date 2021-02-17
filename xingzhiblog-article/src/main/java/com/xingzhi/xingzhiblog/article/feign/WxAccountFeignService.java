@@ -1,9 +1,11 @@
 package com.xingzhi.xingzhiblog.article.feign;
 
+import com.xingzhi.xingzhiblog.article.domain.dto.LoginDTO;
 import com.xingzhi.xingzhiblog.common.result.R;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /**
  * @program: xingzhiblog
@@ -14,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @FeignClient("xingzhiblog-user")
 public interface WxAccountFeignService {
 
-    @RequestMapping("/user/wx/{id}")
-    public R wxLogin(@PathVariable(value="id") int id);
+    @PostMapping("/user/wx/{id}")
+    public R getWxUserDataById(@PathVariable(value="id") int id);
+
+    @PostMapping("/user/wx/login")
+    public R wxLogin(@RequestBody LoginDTO loginDTO);
 
 }

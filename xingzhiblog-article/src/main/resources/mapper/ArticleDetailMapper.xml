@@ -11,10 +11,8 @@
         <result property="viewCount" column="view_count"/>
         <result property="commentCount" column="comment_count"/>
         <result property="createTime" column="create_time"/>
-        <association property="userListVo" javaType="UserListVO">
-            <result property="userName" column="nick_name"/>
-            <result property="avatar" column="avatar"/>
-        </association>
+        <result property="authorName" column="author_name"/>
+        <result property="authorAvatar" column="author_avatar"/>
         <collection property="tagDtoList" ofType="TagDTO" resultMap="tagDtoListMapResult"/>
     </resultMap>
 
@@ -27,10 +25,9 @@
         <result property="articleContent" column="article_content"/>
     </resultMap>
 
-
     <sql id="articleListVOFlied">
-        ab.id, ab.title, ab.image, ab.brief, ab.like_count, ab.comment_count, ab.view_count, ab.create_time, atag.tag_name, atag.color
---         al.nick_name, al.avatar
+        ab.id, ab.title, ab.image, ab.brief, ab.author_name, ab.author_avatar, ab.like_count,
+        ab.comment_count, ab.view_count, ab.create_time, atag.tag_name, atag.color
     </sql>
 
     <select id="getALlArticle" resultMap="articleListVOResultMap">
@@ -39,7 +36,6 @@
         FROM
             article_blog ab
             LEFT JOIN article_detail ad ON ab.id = ad.blog_id
---             LEFT JOIN admin_info al ON ab.admin_info_id = al.id
             LEFT JOIN article_blog_tag abt ON ab.id = abt.blog_id
             LEFT JOIN article_tag atag ON atag.id = abt.tag_id
         WHERE

@@ -1,6 +1,7 @@
 package com.xingzhi.xingzhiblog.article.dao;
 
 import com.xingzhi.xingzhiblog.article.domain.vo.ArticleCommentVO;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,14 +15,16 @@ import java.util.List;
 @Repository
 public interface ArticleCommentMapper {
 
-    List<ArticleCommentVO> getArticleParentCommentByBlogId(int blogId, int parentId);
+    List<ArticleCommentVO> getArticleParentCommentByBlogId(@Param("blogId") int blogId, @Param("parentId") int parentId);
 
-    List<ArticleCommentVO> getArticleChildrenCommentByCommentId(int parentId);
+    List<ArticleCommentVO> getArticleChildrenCommentByCommentId(@Param("parentId") int parentId);
 
-    Integer addArticleParentComment(String content, int userId, int blogId);
+    Integer addArticleParentComment(@Param("content") String content, @Param("userId") int userId,
+                                    @Param("blogId") int blogId);
 
-    Integer updateArticleCommentCountByBlogId(int blogId);
+    Integer updateArticleCommentCountByBlogId(@Param("blogId") int blogId);
 
-    Integer addArticleSonComment(String content, int userId, int blogId, int parentCommentId);
+    Integer addArticleSonComment(@Param("content") String content, @Param("userId") int userId,
+                                 @Param("blogId") int blogId, @Param("parentCommentId") int parentCommentId);
 
 }

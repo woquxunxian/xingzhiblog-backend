@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: xingzhiblog
@@ -41,8 +42,8 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
             int userId = articleParentCommentVO.getUserId();
             int commentId = articleParentCommentVO.getId();
             //获取用户微信账户信息
-            R wxAccountResult = wxAccountFeignService.wxLogin(userId);
-            WxAccountVO wxAccountVO = this.getWxAccountById(userId);
+            articleParentCommentVO.setWxAccountVO(this.getWxAccountById(userId));
+            log.info(articleParentCommentVO.getWxAccountVO().toString());
             //获取子评论
             List<ArticleCommentVO> articleCommentVOChildrenList = articleCommentMapper.getArticleChildrenCommentByCommentId(commentId);
             for (ArticleCommentVO articleChildrenCommentVO : articleCommentVOChildrenList) {
@@ -74,8 +75,14 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     }
 
     public WxAccountVO getWxAccountById(int userId) {
-        R wxAccountResult = wxAccountFeignService.wxLogin(userId);
-        WxAccountVO wxAccountVO = (WxAccountVO) wxAccountResult.get("data");
+        R wxAccountResult = wxAccountFeignService.getWxUserDataById(userId);
+        log.info("wxAccountResult:{}",wxAccountResult.toString());
+        Map map = (Map) wxAccountResult.get("data");
+        WxAccountVO wxAccountVO = new WxAccountVO();
+        wxAccountVO.setId((Integer) map.get("id"));
+        wxAccountVO.setNickName((String) map.get("nickName"));
+        wxAccountVO.setOpenId((String) map.get("openId"));
+        wxAccountVO.setAvatar((String) map.get("avatar"));
         return wxAccountVO;
     }
 

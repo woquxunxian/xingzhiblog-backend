@@ -28,6 +28,10 @@ public class ArticleListVO {
 
     String brief;
 
+    String authorName;
+
+    String authorAvatar;
+
     Integer likeCount;
 
     Integer viewCount;
@@ -35,8 +39,6 @@ public class ArticleListVO {
     Integer commentCount;
 
     List<TagDTO> tagDtoList;
-
-    UserListVO userListVo;
 
     Date createTime;
 }

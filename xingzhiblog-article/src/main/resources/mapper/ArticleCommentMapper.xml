@@ -28,7 +28,7 @@
     <select id="getArticleChildrenCommentByCommentId" resultMap="articleChildrenComment">
         SELECT comment_content, create_time, user_id
         from article_comment
-        WHERE parent_id = #{commentId}
+        WHERE parent_id = #{parentId}
         ORDER BY create_time DESC;
     </select>
 

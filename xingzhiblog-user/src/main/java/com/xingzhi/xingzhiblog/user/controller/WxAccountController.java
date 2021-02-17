@@ -33,7 +33,7 @@ public class WxAccountController {
 
     @ApiOperation("通过id获取用户数据")
     @PostMapping("/{id}")
-    public R wxLogin(@PathVariable int id){
+    public R getWxUserDataById(@PathVariable int id){
         return R.ok().put("data", wxAccountService.getUserDataById(id));
     }
 
