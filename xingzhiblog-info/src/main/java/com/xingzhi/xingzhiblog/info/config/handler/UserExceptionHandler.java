@@ -21,6 +21,12 @@ import javax.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class UserExceptionHandler {
 
+    /**
+    * @Description: 用户登录异常处理
+    * @Param:  * @param null
+    * @return:
+    * @Author: 行之
+    */
     @ExceptionHandler(UserLoginException.class)
     public R systemExceptionHander(HttpServletRequest request, SystemException e) throws Exception {
         System.out.println("捕获UserLoginException异常");

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @program: xingzhiblog
- * @description:
+ * @description: 信息管理
  * @author: 行之
  * @create: 2020-12-23 17:24
  **/
@@ -25,6 +25,12 @@ public class InfoController {
     @Autowired
     private InfoService infoService;
 
+    /**
+     * @Description: 获取博客全部简介信息
+     * @Param: @param null
+     * @return: R
+     * @Author: 行之
+     */
     @GetMapping("all")
     @ApiOperation("通过作者信息")
     public R getAllInfoById() {

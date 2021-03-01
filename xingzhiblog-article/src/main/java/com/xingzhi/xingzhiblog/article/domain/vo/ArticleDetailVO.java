@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Alias("ArticleDetailVO")
-public class ArticleDetailVO {
+public class ArticleDetailVO implements Serializable {
     String articleContent;
     List<ArticleCommentVO> articleCommentVOList;
 }

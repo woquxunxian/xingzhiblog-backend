@@ -24,6 +24,27 @@ public class ArticleLikeController {
     @Autowired
     private ArticleLikeService articleLikeService;
 
+    /**
+     * @Description: 获取用户相关文章点赞状态
+     * @Param: blogId 博客id
+     * @param: userId 用户id
+     * @return: R
+     * @Author: 行之
+     */
+    @GetMapping("like/status")
+    @ApiOperation("获取用户的点赞状态")
+    public R getArticleLikeStatusByBlogIdAndUserId(Integer blogId, Integer userId) {
+        Integer updateStatus = articleLikeService.getArticleLikeStatusByBlogIdAndUserId(blogId, userId);
+        return R.ok().put("data", updateStatus);
+    }
+
+    /**
+     * @Description: 文章点赞数加一
+     * @Param: blogId 博客id
+     * @param: userId 用户id
+     * @return: R
+     * @Author: 行之
+     */
     @PutMapping("like/number")
     @ApiOperation("通过文章id更新点赞数+1")
     public R updateLikeCountByBlogId(@RequestParam("blogId") Integer blogId, @RequestParam("userId") Integer userId) {
@@ -32,13 +53,13 @@ public class ArticleLikeController {
         return R.ok().put("data", updateStatus);
     }
 
-    @GetMapping("like/status")
-    @ApiOperation("获取用户的点赞状态")
-    public R getArticleLikeStatusByBlogIdAndUserId(Integer blogId, Integer userId) {
-        Integer updateStatus = articleLikeService.getArticleLikeStatusByBlogIdAndUserId(blogId, userId);
-        return R.ok().put("data", updateStatus);
-    }
-
+    /**
+     * @Description: 文章点赞数减一
+     * @Param: blogId 博客id
+     * @param: userId 用户id
+     * @return: R
+     * @Author: 行之
+     */
     @PutMapping("unlike/number")
     @ApiOperation("通过文章id更新点赞数-1")
     public R updateMinusLikeCountByBlogId(@RequestParam("blogId") Integer blogId, @RequestParam("userId") Integer userId) {

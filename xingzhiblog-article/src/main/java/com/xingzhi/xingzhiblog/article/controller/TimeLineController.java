@@ -26,6 +26,12 @@ public class TimeLineController {
     @Autowired
     private TimeLineService timeLineService;
 
+    /**
+    * @Description: 获取归档数据
+    * @Param: null
+    * @return: R
+    * @Author: 行之
+    */
     @GetMapping("/all")
     @ApiOperation("获取归档列表数据")
     public R getTimeLineData() {

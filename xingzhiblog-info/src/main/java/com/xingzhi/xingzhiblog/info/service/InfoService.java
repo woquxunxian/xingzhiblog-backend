@@ -9,5 +9,11 @@ import com.xingzhi.xingzhiblog.info.domain.vo.InfoVO;
  * @create: 2020-12-23 17:22
  **/
 public interface InfoService {
+    /**
+     * @Description: 获取博客、作者全部信息
+     * @Param:  * @param null
+     * @return: InfoVO 信息数据响应封装
+     * @Author: 行之
+     */
     InfoVO getInfo();
 }

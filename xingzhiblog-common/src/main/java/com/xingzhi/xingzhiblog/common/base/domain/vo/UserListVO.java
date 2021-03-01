@@ -1,9 +1,11 @@
-package com.xingzhi.xingzhiblog.user.domain.vo;
+package com.xingzhi.xingzhiblog.common.base.domain.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
+
+import java.io.Serializable;
 
 /**
  * @program: xingzhiblog
@@ -15,7 +17,7 @@ import org.apache.ibatis.type.Alias;
 @AllArgsConstructor
 @NoArgsConstructor
 @Alias("UserListVO")
-public class UserListVO {
+public class UserListVO implements Serializable {
     String userName;
     String avatar;
     String token;

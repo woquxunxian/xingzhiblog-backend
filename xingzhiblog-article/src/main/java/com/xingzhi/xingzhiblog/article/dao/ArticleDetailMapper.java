@@ -21,43 +21,38 @@ public interface ArticleDetailMapper {
     * @Param:  * @param null
     * @return:
     * @Author: 行之
-    * @Date: 2020/12/31
     */
     List<ArticleListVO> getALlArticle();
 
     /**
     * @Description: 通过文章ID获取文章内容
-    * @Param:  * @param null
-    * @return:
+    * @Param: blogId 博客id
+    * @return: ArticleDetailVO 博客详情响应对象
     * @Author: 行之
-    * @Date: 2021/1/6
     */
     ArticleDetailVO getArticleContentByBlogId(@Param("blogId") int blogId);
 
     /**
     * @Description: 通过文章标题关键字模糊查询文章
-    * @Param:  * @param null
-    * @return:
+    * @Param: articleTitle 文章标题
+    * @return: List<ArticleListVO> 文章信息流响应对象列表
     * @Author: 行之
-    * @Date: 2021/1/6
     */
     List<ArticleListVO> getArticleBySearchWithTitle(String articleTitle);
 
     /**
     * @Description: 通过标签名查询文章
-    * @Param:  * @param null
-    * @return:
+    * @Param: articleTagName 标签名
+    * @return: List<ArticleListVO> 文章信息流响应对象列表
     * @Author: 行之
-    * @Date: 2021/1/9
     */
     List<ArticleListVO> getArticleByTagName(String articleTagName);
 
     /**
-    * @Description: 通过博客id增加阅读数，目前只是模拟增加，后期维护用户系统后才能统计真正的阅读数量
-    * @Param:  * @param null
-    * @return:
+    * @Description: 通过博客id增加阅读数
+    * @Param: BlogId 博客id
+    * @return: 成功：1；失败：0
     * @Author: 行之
-    * @Date: 2021/1/6
     */
     int updateViewCountByBlogId(Integer BlogId);
 

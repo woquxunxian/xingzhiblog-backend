@@ -41,13 +41,28 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+  main:
+    allow-bean-definition-overriding: true
+
+#dubbo:
+#  application:
+#    name: dubbo-xingzhiblog-user
+#  scan:
+#    base-packages: com.xingzhi.xingzhiblog.user.service
+#  protocol:
+#    name: dubbo
+#    port: 20880
+#  registry:
+#    address: nacos://localhost:8848
+#  cloud:
+#    subscribed-services: dubbo-xingzhiblog-article
 
 #mybatis配置
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.xingzhi.xingzhiblog.user.domain
+  type-aliases-package: com.xingzhi.xingzhiblog
 
 # 日志配置
 #logging:

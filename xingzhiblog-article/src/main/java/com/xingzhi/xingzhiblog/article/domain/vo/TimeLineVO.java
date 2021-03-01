@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
+
 /**
  * @program: xingzhiblog
  * @description: 小程序-归档查询请求返回对象
@@ -15,7 +17,7 @@ import org.apache.ibatis.type.Alias;
 @AllArgsConstructor
 @NoArgsConstructor
 @Alias("TimeLineVO")
-public class TimeLineVO {
+public class TimeLineVO implements Serializable {
     String date;
     Integer count;
 }

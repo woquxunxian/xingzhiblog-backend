@@ -30,6 +30,12 @@ public class ArticleDetailController {
     @Autowired
     private ArticleDetailService articleDetailService;
 
+    /**
+     * @Description: 获取文章信息流列表
+     * @Param: null
+     * @return: R
+     * @Author: 行之
+     */
     @GetMapping("all")
     @ApiOperation("获取所有文章列表")
     public R getAllArticle() {
@@ -39,6 +45,12 @@ public class ArticleDetailController {
         return R.ok().put("data", articleListVOList);
     }
 
+    /**
+     * @Description: 获取文章详情内容
+     * @Param: blogId 博客id
+     * @return: R
+     * @Author: 行之
+     */
     @GetMapping("content")
     @ApiOperation("通过文章id获取文章内容（包括评论）")
     public R getArticleContent(int blogId) {
@@ -46,6 +58,12 @@ public class ArticleDetailController {
         return R.ok().put("data", articleDetailVO);
     }
 
+    /**
+     * @Description: 搜索相关文章
+     * @Param: articleTitle 文章标题
+     * @return: R
+     * @Author: 行之
+     */
     @GetMapping("search")
     @ApiOperation("通过文章标题关键字搜索相关文章")
     public R getArticleContent(String articleTitle) {
@@ -53,6 +71,12 @@ public class ArticleDetailController {
         return R.ok().put("data", articleListVOList);
     }
 
+    /**
+     * @Description: 更新文章阅读量
+     * @Param: blogId 博客id
+     * @return: R
+     * @Author: 行之
+     */
     @PutMapping("view/number")
     @ApiOperation("通过文章id更新阅读量")
     public R updateViewCountByBlogId(Integer blogId) {

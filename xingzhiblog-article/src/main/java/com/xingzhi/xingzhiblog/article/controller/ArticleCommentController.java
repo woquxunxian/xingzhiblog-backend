@@ -28,13 +28,27 @@ public class ArticleCommentController {
     @Autowired
     private ArticleCommentService articleCommentService;
 
+    /**
+    * @Description: 获取文章所有评论
+    * @Param: blogId 文章id
+    * @return: R
+    * @Author: 行之
+    */
     @GetMapping("comment/{blogId}")
-    @ApiOperation("根据文章id获取相关评论")
+    @ApiOperation("根据文章id获取所有评论")
     public R getArticleCommentByBlogId(@PathVariable int blogId) {
         List<ArticleCommentVO> articleCommentVOList = articleCommentService.getArticleCommentByBlogId(blogId);
         return R.ok().put("data", articleCommentVOList);
     };
 
+    /**
+     * @Description: 添加文章的一个父评论
+     * @Param: content 评论内容
+     * @Param: userId 用户id
+     * @Param: blogId 博客id
+     * @return: R
+     * @Author: 行之
+     */
     @GetMapping("comment/parent")
     @ApiOperation("添加文章父评论")
     public R getArticleCommentByBlogId(String content, int userId, int blogId) {
@@ -42,6 +56,14 @@ public class ArticleCommentController {
         return R.ok().put("data", status);
     };
 
+    /**
+     * @Description: 添加文章子评论
+     * @Param: content 评论内容
+     * @Param: userId 用户id
+     * @param: blogId 博客id
+     * @param: parentCommentId 父评论id
+     * @Author: 行之
+     */
     @GetMapping("comment/son")
     @ApiOperation("添加文章子评论")
     public R getArticleCommentByBlogId(String content, int userId, int blogId, int parentCommentId) {

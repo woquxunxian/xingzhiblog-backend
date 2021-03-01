@@ -41,6 +41,24 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+  main:
+    allow-bean-definition-overriding: true
+
+#dubbo:
+#  application:
+#    name: dubbo-xingzhiblog-article
+#  scan:
+#    base-packages: com.xingzhi.xingzhiblog.article.service
+#  # 设置超时时间
+#  consumer:
+#    timeout: 4000
+#  protocol:
+#    name: dubbo
+#    port: 20881
+#  registry:
+#    address: nacos://localhost:8848
+#  cloud:
+#    subscribed-services: dubbo-xingzhiblog-user
 
 #mybatis配置
 mybatis:

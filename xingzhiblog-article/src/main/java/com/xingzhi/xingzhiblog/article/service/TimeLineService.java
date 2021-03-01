@@ -11,5 +11,11 @@ import java.util.List;
  * @create: 2021-01-09 17:30
  **/
 public interface TimeLineService {
+    /**
+     * @Description: 获取归档数据
+     * @Param: null
+     * @return: List<TimeLineVO> 归档轴响应对象列表
+     * @Author: 行之
+     */
     List<TimeLineVO> getAllArticleDate();
 }

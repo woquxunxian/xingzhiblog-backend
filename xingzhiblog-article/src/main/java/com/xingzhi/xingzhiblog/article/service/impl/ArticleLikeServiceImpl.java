@@ -1,5 +1,6 @@
 package com.xingzhi.xingzhiblog.article.service.impl;
 
+import com.xingzhi.xingzhiblog.article.constant.RedisConstant;
 import com.xingzhi.xingzhiblog.article.dao.ArticleLikeMapper;
 import com.xingzhi.xingzhiblog.article.service.ArticleLikeService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,13 @@ public class ArticleLikeServiceImpl implements ArticleLikeService {
     @Autowired
     private ArticleLikeMapper articleLikeMapper;
 
+    /**
+     * @Description: 获取用户相关文章点赞状态
+     * @Param: blogId 博客id
+     * @param: userId 用户id
+     * @return: int 已点赞：1；未点赞：0
+     * @Author: 行之
+     */
     @Override
     public int getArticleLikeStatusByBlogIdAndUserId(Integer blogId, Integer userId) {
         Integer likeStatus = articleLikeMapper.getArticleLikeStatusByBlogIdAndUserId(blogId, userId);
@@ -33,15 +41,18 @@ public class ArticleLikeServiceImpl implements ArticleLikeService {
     }
 
     /**
-     * @Description: 通过博客id增加点赞数，赞+1
-     * @Param:  * @param null
-     * @return:
+     * @Description: 文章点赞数加一
+     * @Param: blogId 博客id
+     * @param: userId 用户id
+     * @return: Integer 更新成功：1；失败：0
      * @Author: 行之
-     * @Date: 2021/1/6
      */
-    @CacheEvict(value = "articleList", allEntries=true)
     @Override
+    @Transactional
+    @CacheEvict(value = RedisConstant.ARTICLE_LIST, allEntries=true)
     public Integer updateLikeCountByBlogId(Integer blogId, Integer userId) {
+        //TODO 操作先写入redis，然后直接返回结果；然后再定时放入队列，由消费者来监听topic并写入数据库
+        // TODO 分布式事务
         Integer isExist = articleLikeMapper.getUserArticleLikeRecord(blogId, userId);
         if (isExist != null) {
             int plusUpdateStatus = articleLikeMapper.updateArticleLikeStatus(blogId, userId, 1);
@@ -57,15 +68,18 @@ public class ArticleLikeServiceImpl implements ArticleLikeService {
     }
 
     /**
-     * @Description: 用户取消赞操作,赞-1
-     * @Param:  * @param null
-     * @return:
+     * @Description: 文章点赞数减一
+     * @Param: blogId 博客id
+     * @param: userId 用户id
+     * @return: Integer 更新成功：1；失败：0
      * @Author: 行之
-     * @Date: 2021/1/11
      */
-    @CacheEvict(value = "articleList", allEntries=true)
     @Override
+    @Transactional
+    @CacheEvict(value = RedisConstant.ARTICLE_LIST, allEntries=true)
     public Integer updateMinusLikeCountByBlogId(Integer blogId, Integer userId) {
+        //TODO 操作先写入redis，然后直接返回结果；然后再定时放入队列，由消费者来监听topic并写入数据库
+        // TODO 分布式事务
         //对点赞表进行状态更新
         int minUpdateStatus = articleLikeMapper.updateArticleLikeStatus(blogId, userId, 0);
         if (minUpdateStatus != 1) return minUpdateStatus;

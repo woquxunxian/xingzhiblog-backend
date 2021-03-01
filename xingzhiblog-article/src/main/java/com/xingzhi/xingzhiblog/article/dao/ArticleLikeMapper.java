@@ -13,38 +13,36 @@ import org.springframework.stereotype.Repository;
 public interface ArticleLikeMapper {
 
     /**
-     * @Description: 通过博客id增加点赞数，目前只是模拟增加，后期维护用户系统后才能统计真正的点赞数量
-     * @Param:  * @param null
-     * @return:
+     * @Description: 通过博客id增加点赞数
+     * @Param: blogId
+     * @return: int 成功：1；失败：0
      * @Author: 行之
-     * @Date: 2021/1/6
      */
     int updateLikeCountByBlogId(@Param("blogId") Integer blogId);
 
     /**
      * @Description: 查看用户在相关文章是否存在点赞的记录
-     * @Param:  * @param null
-     * @return:
+     * @Param: blogId 博客id
+     * @param: userId 用户id
+     * @return: Integer 存在：1；不存在：0
      * @Author: 行之
-     * @Date: 2021/1/13
      */
     Integer getUserArticleLikeRecord(@Param("blogId") Integer blogId, @Param("userId") Integer userId);
 
     /**
-     * @Description:
-     * @Param:  * @param null
-     * @return:
+     * @Description: 更新点赞数量-1
+     * @Param: blogId 博客id
+     * @return: int 成功：1；失败：0
      * @Author: 行之
-     * @Date: 2021/1/9
      */
     int updateMinusLikeCountByBlogId(@Param("blogId") Integer blogId);
 
     /**
      * @Description: 添加文章的点赞记录，like_status为1
-     * @Param:  * @param null
-     * @return:
+     * @Param: blogId 博客id
+     * @param: userId 用户id
+     * @return: int 成功：1；失败：0
      * @Author: 行之
-     * @Date: 2021/1/11
      */
     int addArticleLikeRecord(@Param("blogId") Integer blogId, @Param("userId") Integer userId);
 
@@ -53,18 +51,17 @@ public interface ArticleLikeMapper {
      * @Param: blogId 文章id
      * @Param: userId 微信用户id
      * @Param: likeStatus 点赞状态：1为点赞，0为取消赞
-     * @return:
+     * @return: int 成功：1；失败：0
      * @Author: 行之
-     * @Date: 2021/1/11
      */
     int updateArticleLikeStatus(@Param("blogId") Integer blogId, @Param("userId") Integer userId, @Param("likeStatus") Integer likeStatus);
 
     /**
      * @Description: 获取用户是否点赞，点赞了则返回1，未点赞则返回0
-     * @Param:  * @param null
-     * @return:
+     * @Param: blogId 博客id
+     * @param: userId 用户id
+     * @return: int 已点赞：1；未点赞：0
      * @Author: 行之
-     * @Date: 2021/1/11
      */
     Integer getArticleLikeStatusByBlogIdAndUserId(@Param("blogId") Integer blogId, @Param("userId") Integer userId);
 

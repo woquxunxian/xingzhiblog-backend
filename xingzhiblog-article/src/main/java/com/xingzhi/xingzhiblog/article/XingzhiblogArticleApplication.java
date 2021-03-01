@@ -8,6 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
+//@EnableDubbo
 @SpringBootApplication
 @MapperScan("com.xingzhi.xingzhiblog.article.dao")
 @EnableFeignClients(basePackages = "com.xingzhi.xingzhiblog.article.feign")

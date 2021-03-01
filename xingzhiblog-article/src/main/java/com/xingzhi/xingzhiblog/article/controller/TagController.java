@@ -28,6 +28,12 @@ public class TagController {
     @Autowired
     private TagService blogTagService;
 
+    /**
+     * @Description: 获取所有标签数据
+     * @Param: null
+     * @return: R
+     * @Author: 行之
+     */
     @GetMapping("all")
     @ApiOperation("获取所有标签信息")
     public R getAllTag() {
@@ -35,6 +41,12 @@ public class TagController {
         return R.ok().put("data", tagVOList);
     }
 
+    /**
+     * @Description: 通过标签名查询标签
+     * @Param: tagName 标签名
+     * @return: R
+     * @Author: 行之
+     */
     @GetMapping("search")
     @ApiOperation("通过标签名查询标签")
     public R getTagByFuzzyQuery(String tagName) {
@@ -42,6 +54,12 @@ public class TagController {
         return R.ok().put("data", tagVOList);
     }
 
+    /**
+     * @Description: 通过标签名获取相关文章
+     * @Param: articleTagName 标签名
+     * @return: R
+     * @Author: 行之
+     */
     @GetMapping("article")
     @ApiOperation("通过标签名获取相关文章")
     public R getArticleContent(String articleTagName) {

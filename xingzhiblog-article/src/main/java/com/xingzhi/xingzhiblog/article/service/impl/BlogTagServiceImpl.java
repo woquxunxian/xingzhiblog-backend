@@ -1,5 +1,6 @@
 package com.xingzhi.xingzhiblog.article.service.impl;
 
+import com.xingzhi.xingzhiblog.article.constant.RedisConstant;
 import com.xingzhi.xingzhiblog.article.dao.ArticleDetailMapper;
 import com.xingzhi.xingzhiblog.article.dao.TagMapper;
 import com.xingzhi.xingzhiblog.article.domain.vo.ArticleListVO;
@@ -31,30 +32,43 @@ public class BlogTagServiceImpl implements TagService {
     @Autowired
     private ArticleDetailMapper articleDetailMapper;
 
-    @Cacheable(key="'tagList'", value = "tagList")
+    /**
+     * @Description: 获取所有标签数据
+     * @Param: null
+     * @return: List<TagVO> 标签响应对象列表
+     * @Author: 行之
+     */
     @Override
+    @Cacheable(value = RedisConstant.ARTICLE_TAG, key = "#root.methodName")
     public List<TagVO> getAllTag() {
         List<TagVO> tagVOList = tagMapper.getAllTag();
         if (tagVOList == null) throw new SystemException("系统出错");
         return tagVOList;
     }
 
+    /**
+     * @Description: 通过标签名查询标签
+     * @Param: tagName 标签名
+     * @return: List<TagVO> 标签响应对象列表
+     * @Author: 行之
+     */
     @Override
     public List<TagVO> getTagByFuzzyQuery(String tagName) {
+        // TODO elastic search 增强搜索速度
         List<TagVO> tagVOList = tagMapper.getTagByFuzzyQuery(tagName);
         if (tagVOList == null) throw new SystemException("系统出错");
         return tagVOList;
     }
 
     /**
-     * @Description:
-     * @Param:  * @param null
-     * @return:
+     * @Description: 通过标签名获取相关文章
+     * @Param: articleTagName 标签名
+     * @return: List<TagVO> 标签响应对象列表
      * @Author: 行之
-     * @Date: 2021/1/9
      */
     @Override
     public List<ArticleListVO> getArticleByTagName(String articleTagName) {
+        // TODO elastic search 增强搜索速度
         List<ArticleListVO> articleListVOList = articleDetailMapper.getArticleByTagName(articleTagName);
         return articleListVOList;
     }

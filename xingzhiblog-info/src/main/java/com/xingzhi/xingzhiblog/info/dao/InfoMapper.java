@@ -12,8 +12,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface InfoMapper {
     /**
-     * 通过id获取博客及博主个人信息
-     * @param
+     * 获取博客及博主个人信息
+     * @param null
      * @return InfoVO
      */
     InfoVO getInfo();

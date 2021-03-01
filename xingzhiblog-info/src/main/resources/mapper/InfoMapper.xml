@@ -1,24 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xingzhi.xingzhiblog.info.dao.InfoMapper">
-<!--    <resultMap id="InfoVOMap" type="InfoVO">-->
-<!--        <result property="authorName" column="author_name"/>-->
-<!--        <result property="authorAvatar" column="author_avatar"/>-->
-<!--        <result property="authorAge" column="author_age"/>-->
-<!--        <result property="authorIntroduction" column="author_introduction"/>-->
-<!--        <result property="authorSchool" column="author_school"/>-->
-<!--        <result property="authorAdress" column="author_adress"/>-->
-<!--        <result property="authorQrcode" column="author_qrcode"/>-->
-<!--        <result property="authorWechatNumber" column="author_wechat_number"/>-->
-<!--        <result property="authorGiteeLink" column="author_gitee_link"/>-->
-<!--        <result property="authorGithubLink" column="author_github_link"/>-->
-<!--        <result property="blogName" column="blog_name"/>-->
-<!--        <result property="blogLogo" column="blog_logo"/>-->
-<!--        <result property="blogIntroduction" column="blog_introduction"/>-->
-<!--        <result property="blogGiteeLink" column="blog_gitee_link"/>-->
-<!--        <result property="blogGithubLink" column="blog_github_link"/>-->
-<!--    </resultMap>-->
+    <!--  信息响应对象映射  -->
+    <resultMap id="InfoVOMap" type="InfoVO">
+        <result property="authorName" column="author_name"/>
+        <result property="authorAvatar" column="author_avatar"/>
+        <result property="authorAge" column="author_age"/>
+        <result property="authorIntroduction" column="author_introduction"/>
+        <result property="authorSchool" column="author_school"/>
+        <result property="authorAdress" column="author_adress"/>
+        <result property="authorQrcode" column="author_qrcode"/>
+        <result property="authorWechatNumber" column="author_wechat_number"/>
+        <result property="authorGiteeLink" column="author_gitee_link"/>
+        <result property="authorGithubLink" column="author_github_link"/>
+        <result property="blogName" column="blog_name"/>
+        <result property="blogLogo" column="blog_logo"/>
+        <result property="blogIntroduction" column="blog_introduction"/>
+        <result property="blogGiteeLink" column="blog_gitee_link"/>
+        <result property="blogGithubLink" column="blog_github_link"/>
+    </resultMap>
 
+    <!--    -->
     <sql id="allInfo">
         author_name,
         author_avatar,
@@ -37,7 +39,8 @@
         blog_github_link
     </sql>
 
-    <select id="getInfo" resultType="InfoVO">
+    <!--  获取所有有效信息  -->
+    <select id="getInfo" resultMap="InfoVOMap">
         select
             <include refid="allInfo"/>
         from my_info

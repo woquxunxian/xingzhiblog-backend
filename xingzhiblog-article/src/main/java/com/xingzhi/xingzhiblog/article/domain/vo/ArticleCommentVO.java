@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Alias("ArticleCommentVO")
-public class ArticleCommentVO{
+public class ArticleCommentVO implements Serializable {
     Integer id;
     Integer userId;
     @ApiModelProperty(value = "评论内容")

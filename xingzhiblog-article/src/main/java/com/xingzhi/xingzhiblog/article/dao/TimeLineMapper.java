@@ -15,10 +15,9 @@ public interface TimeLineMapper {
 
     /**
     * @Description: 不重复地获取所有文章的日期
-    * @Param:  * @param null
-    * @return:
+    * @Param: null
+    * @return: List<String> 文章日期列表
     * @Author: 行之
-    * @Date: 2021/1/9
     */
     List<String> getAllArticleDate();
 

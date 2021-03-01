@@ -13,10 +13,32 @@ import java.util.List;
  **/
 public interface ArticleCommentService {
 
+    /**
+    * @Description: 获取文章评论
+    * @Param: blogId 博客id
+    * @return: List<ArticleCommentVO> 评论数据
+    * @Author: 行之
+    */
     List<ArticleCommentVO> getArticleCommentByBlogId(int blogId);
 
+    /**
+     * @Description: 添加文章父评论
+     * @Param: content 评论内容
+     * @Param: userId 用户id
+     * @param: blogId 博客id
+     * @return: Integer 添加是否成功，成功：1、失败：0
+     * @Author: 行之
+     */
     Integer addArticleParentComment(String content, int userId, int blogId);
 
-    @CacheEvict(value = "articleList", allEntries=true)
+    /**
+     * @Description: 添加文章子评论
+     * @Param: content 评论内容
+     * @Param: userId 用户id
+     * @param: blogId 博客id
+     * @param: parentCommentId 父评论id
+     * @return: Integer 添加是否成功，成功：1、失败：0
+     * @Author: 行之
+     */
     Integer addArticleSonComment(String content, int userId, int blogId, int parentCommentId);
 }

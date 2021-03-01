@@ -16,9 +16,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient("xingzhiblog-user")
 public interface WxAccountFeignService {
 
+    /**
+     * @Description: 获取微信账户
+     * @Param: userId 用户id
+     * @return: WxAccountVO 微信账户响应对象
+     * @Author: 行之
+     */
     @PostMapping("/user/wx/{id}")
     public R getWxUserDataById(@PathVariable(value="id") int id);
 
+    /**
+     * @Description: 微信登录
+     * @Param:  LoginDTO 登录数据传输对象
+     * @return: R
+     * @Author: 行之
+     */
     @PostMapping("/user/wx/login")
     public R wxLogin(@RequestBody LoginDTO loginDTO);
 

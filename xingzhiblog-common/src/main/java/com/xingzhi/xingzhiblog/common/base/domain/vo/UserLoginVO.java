@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.article.domain.vo;
+package com.xingzhi.xingzhiblog.common.base.domain.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,16 +9,15 @@ import java.io.Serializable;
 
 /**
  * @program: xingzhiblog
- * @description: 标签视图类
+ * @description: 用户登录表单接收
  * @author: 行之
- * @create: 2020-12-27 23:40
+ * @create: 2021-01-01 20:12
  **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Alias("TagVO")
-public class TagVO implements Serializable {
-    String tagName;
-    String tagDescription;
-    String color;
+@Alias("UserLoginVO")
+public class UserLoginVO implements Serializable {
+    String userName;
+    String password;
 }

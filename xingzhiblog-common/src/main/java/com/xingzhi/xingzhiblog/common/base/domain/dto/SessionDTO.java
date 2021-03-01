@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.user.domain.vo;
+package com.xingzhi.xingzhiblog.common.base.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,15 +7,15 @@ import org.apache.ibatis.type.Alias;
 
 /**
  * @program: xingzhiblog
- * @description: 用户登录表单接收
+ * @description:
  * @author: 行之
- * @create: 2021-01-01 20:12
+ * @create: 2021-01-09 23:48
  **/
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Alias("UserLoginVO")
-public class UserLoginVO {
-    String userName;
-    String password;
+@Alias("SessionDTO")
+public class SessionDTO {
+    private String openid;
+    private String sessionKey;
 }

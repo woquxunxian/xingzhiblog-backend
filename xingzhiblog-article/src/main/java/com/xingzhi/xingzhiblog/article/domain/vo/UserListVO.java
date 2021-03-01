@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
+
 /**
  * @program: xingzhiblog
  * @description: 用户登录信息视图类
@@ -15,7 +17,7 @@ import org.apache.ibatis.type.Alias;
 @AllArgsConstructor
 @NoArgsConstructor
 @Alias("UserListVO")
-public class UserListVO {
+public class UserListVO implements Serializable {
     String userName;
     String avatar;
     String token;

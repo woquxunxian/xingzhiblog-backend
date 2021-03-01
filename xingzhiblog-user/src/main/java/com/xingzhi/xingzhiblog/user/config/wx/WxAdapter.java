@@ -1,8 +1,8 @@
 package com.xingzhi.xingzhiblog.user.config.wx;
 
 import com.alibaba.fastjson.JSON;
+import com.xingzhi.xingzhiblog.common.base.domain.dto.SessionDTO;
 import com.xingzhi.xingzhiblog.common.exception.SystemException;
-import com.xingzhi.xingzhiblog.user.domain.dto.SessionDTO;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

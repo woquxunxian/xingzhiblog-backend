@@ -1,4 +1,4 @@
-package com.xingzhi.xingzhiblog.user.domain.dto;
+package com.xingzhi.xingzhiblog.common.base.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

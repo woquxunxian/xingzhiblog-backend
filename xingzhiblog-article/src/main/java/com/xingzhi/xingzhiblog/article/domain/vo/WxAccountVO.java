@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.ibatis.type.Alias;
 
+import java.io.Serializable;
+
 /**
  * @program: xingzhiblog
  * @description: 微信登录返回类
@@ -15,7 +17,7 @@ import org.apache.ibatis.type.Alias;
 @AllArgsConstructor
 @NoArgsConstructor
 @Alias("WxAccountVO")
-public class WxAccountVO {
+public class WxAccountVO implements Serializable {
     private Integer id;
     private String openId;
     private String unionId;

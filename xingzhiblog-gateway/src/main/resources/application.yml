@@ -1,10 +1,10 @@
 server:
   port: 88
-#  ssl:
-#    enabled: true
-#    key-store-password: qingpingyue
-#    key-store: classpath:qingpingyue.top.jks
-#    key-store-type: JKS
+  ssl:
+    enabled: true
+    key-store-password: qingpingyue
+    key-store: classpath:qingpingyue.top.jks
+    key-store-type: JKS
 spring:
   # spring cloud
   cloud:
