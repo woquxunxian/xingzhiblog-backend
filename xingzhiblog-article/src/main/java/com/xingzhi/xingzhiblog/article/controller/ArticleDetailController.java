@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @program: xingzhiblog
@@ -53,7 +54,7 @@ public class ArticleDetailController {
      */
     @GetMapping("content")
     @ApiOperation("通过文章id获取文章内容（包括评论）")
-    public R getArticleContent(int blogId) {
+    public R getArticleContent(int blogId) throws ExecutionException, InterruptedException {
         ArticleDetailVO articleDetailVO = articleDetailService.getArticleContentByBlogId(blogId);
         return R.ok().put("data", articleDetailVO);
     }

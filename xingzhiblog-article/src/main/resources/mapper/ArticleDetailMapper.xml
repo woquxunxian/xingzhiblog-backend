@@ -44,7 +44,7 @@
             ab.view_count DESC;
     </select>
     
-    <select id="getArticleContentByBlogId" resultMap="articleContent">
+    <select id="getArticleContentByBlogId" resultType="string">
         SELECT
 	        article_content
         FROM
@@ -87,7 +87,14 @@
         UPDATE article_blog
         SET view_count = view_count + 1
         WHERE
-            id = #{BlogId};
+            id = #{blogId};
+    </update>
+
+    <update id="updateViewCountByBlogIdAndViewCount" parameterType="java.lang.Integer">
+        UPDATE article_blog
+        SET view_count = view_count + #{viewCount}
+        WHERE
+            id = #{blogId};
     </update>
 
 </mapper>

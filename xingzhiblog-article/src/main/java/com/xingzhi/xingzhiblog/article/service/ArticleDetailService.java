@@ -5,6 +5,7 @@ import com.xingzhi.xingzhiblog.article.domain.vo.ArticleListVO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @program: xingzhiblog
@@ -29,7 +30,7 @@ public interface ArticleDetailService {
     * @return: ArticleDetailVO 文章详情响应数据
     * @Author: 行之
     */
-    ArticleDetailVO getArticleContentByBlogId(int blogId);
+    ArticleDetailVO getArticleContentByBlogId(int blogId) throws ExecutionException, InterruptedException;
 
     /**
     * @Description: 通过文章标题关键字搜索文章

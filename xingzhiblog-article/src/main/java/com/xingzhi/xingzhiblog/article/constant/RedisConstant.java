@@ -31,4 +31,10 @@ public class RedisConstant {
      * 存储归档轴前缀
      */
     public static final String ARTICLE_TIMELINE = "articleTimeLine";
+
+    /** 阅读量key */
+    public static final String VIEW_NUMBER_KEY = "view::number";
+
+    /** 点赞key */
+    public static final String LIKE_STATUS_KEY = "like::status";
 }

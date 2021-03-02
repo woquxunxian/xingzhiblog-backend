@@ -30,7 +30,7 @@ public interface ArticleDetailMapper {
     * @return: ArticleDetailVO 博客详情响应对象
     * @Author: 行之
     */
-    ArticleDetailVO getArticleContentByBlogId(@Param("blogId") int blogId);
+    String getArticleContentByBlogId(@Param("blogId") int blogId);
 
     /**
     * @Description: 通过文章标题关键字模糊查询文章
@@ -54,6 +54,15 @@ public interface ArticleDetailMapper {
     * @return: 成功：1；失败：0
     * @Author: 行之
     */
-    int updateViewCountByBlogId(Integer BlogId);
+    int updateViewCountByBlogId(Integer blogId);
+
+    /**
+     * @Description: 通过博客id和阅读数更新阅读总量
+     * @Param: BlogId 博客id
+     * @param: viewCount 阅读数
+     * @return: 成功：1；失败：0
+     * @Author: 行之
+     */
+    int updateViewCountByBlogIdAndViewCount(@Param("blogId") Integer blogId, @Param("viewCount") Integer viewCount);
 
 }

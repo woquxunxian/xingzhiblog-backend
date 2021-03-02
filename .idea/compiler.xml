@@ -14,6 +14,9 @@
         <module name="xingzhiblog-user" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="xingzhiblog-task" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

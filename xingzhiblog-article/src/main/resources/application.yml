@@ -4,7 +4,6 @@ server:
 #    key-store: classpath:qingpingyue.top.jks
 #    key-store-password: qingpingyue
 #    key-store-type: JKS
-
 spring:
   #应用
   application:
@@ -41,8 +40,13 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    alibaba:
+      seata:
+        tx-service-group: xingzhiblog-article-fescar-service-group
   main:
     allow-bean-definition-overriding: true
+  cache:
+    type: redis
 
 #dubbo:
 #  application:
@@ -66,7 +70,6 @@ mybatis:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.xingzhi.xingzhiblog.article.domain
-
 # 日志配置
 #logging:
 #  level:
@@ -84,5 +87,11 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
+
+xingzhiblog:
+  thread:
+    coreSize: 20
+    maxSize: 100
+    keepAliveTime: 30
 
 debug: true
