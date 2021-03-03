@@ -2,11 +2,11 @@
 
 ## 项目简介
 
-一款博客微信小程序，包括 Java 服务端，微信小程序端，vue 管理后台前端。主要功能有博客主体（文章流、文章详细内容、评论、点赞）、博主信息、分类标签、归档时间轴等几个模块。后端主要使用 Spring Boot + Spring Cloud & Alibaba + Mybatis 进行开发；使用 Jwt + Shiro做登录验证和权限校验；使用 ElasticSearch 作为检索服务；使用 Mysql 作为持久化数据库以及 Redis 缓存中间件；使用七牛云 OSS 作为图片存储服务；使用 [renren-fast](https://gitee.com/renrenio/renren-fast) 作为后台服务脚手架。微信小程序端主要使用原生框架进行开发，使用 ColorUI 作为 UI 框架，Wemark 组件进行 Markdown 渲染。管理后台前端主要使用Vue、Element-UI、axios、[renren-fast-vue](https://gitee.com/renrenio/renren-fast-vue)。此项目是我的第一个项目，目前处于开发前期阶段，许多技术也很不熟练，大多是一边写一边学习的，还希望各位多多指教/批评，感谢！o(*////▽////*)q
+一款博客微信小程序，包括 Java 服务端，微信小程序端，vue 管理后台前端。主要功能有博客主体（文章流、文章详细内容、评论、点赞）、博主信息、分类标签、归档时间轴等几个模块。后端主要使用 Spring Boot + Spring Cloud & Alibaba + Mybatis 进行开发；使用 Jwt + Shiro做登录验证和权限校验；使用 Mysql 作为持久化数据库以及 Redis 缓存中间件、RabbitMQ作为消息中间件；使用 ElasticSearch 作为检索服务（es刚学会，还未集成到项目）；使用七牛云 OSS 作为图片存储服务；使用 [renren-fast](https://gitee.com/renrenio/renren-fast) 作为后台服务脚手架。微信小程序端主要使用原生框架进行开发，使用 ColorUI 作为 UI 框架，Wemark 组件进行 Markdown 渲染。管理后台前端主要使用Vue、Element-UI、axios、[renren-fast-vue](https://gitee.com/renrenio/renren-fast-vue)。此项目是我的第一个项目，许多技术也很不熟练，大多是一边写一边学习的，还希望各位多多指教/批评，感谢！o(*////▽////*)q
 
 ## 项目体验
 
-目前微信小程序已上线，但是后台还没开发完全，上线目的主要是给自己一点激励...
+目前微信小程序已上线，上线目的主要是给自己一点激励...
 
 体验方式：微信搜索小程序“行之Blog”或者微信扫码以下小程序码
 
@@ -16,11 +16,9 @@
 
 - 文章详情内容渲染速度有点看手机性能的，如果点击文章进入后内容没有马上显示请稍微等一下
 
-- ElasticSearch目前也没用上，后续迭代的时候会用上...
-- Redis也只是一些简单的应用，后续迭代会加深使用
-
-- 小程序端主要功能基本实现，正在思考有没有要完善的地方
-- 后台尚未开发完全，注意：master 分支使用的是人人开源的 [renren-fast-vue](https://gitee.com/renrenio/renren-fast-vue) 作为脚手架，而 develop 分支则是自己搭建的 Shiro + Jwt
+- ElasticSearch 目前还未用到项目上，后续迭代的时候会用上（用于文章检索、标签检索等）
+- 用户前台（小程序端）已基本完成，管理后台的需求不是很急迫，所以其目前处于起始状态
+- admin 模块的 master 分支使用的是人人开源的 [renren-fast-vue](https://gitee.com/renrenio/renren-fast-vue) 作为脚手架，而 develop 分支则是自己搭建的 Shiro + Jwt
 
 ## 项目代码仓库
 
@@ -30,27 +28,38 @@
 | Java后端：https://github.com/woquxunxian/xingzhiblog-backend | Java后端：https://gitee.com/cyyqz/xingzhi-blog-backend |
 | 后台前端：https://github.com/woquxunxian/xingzhiblog-admin   | 后台前端：https://gitee.com/cyyqz/xingzhi-blog-admin   |
 
-## 技术栈
+## 技术介绍
 
-### java后端
+### 技术特色
+
+- 文章详情页采用 CompletableFuture 异步编排的方式获取详情页的内容数据，提升了接口响应速度
+- 文章点击阅读量增加采用先写入 redis 缓存中，再由定时任务 QuartZ 定时写入 MySQL 数据库
+- 文章点赞/取消赞操作数据先写入 redis 缓存中，再由定时任务 QuartZ 定时发送到 RabbitMQ 消息队列的 topic 中，由空闲消费者把消息数据写入 MySQL 中进行持久化
+- 采用了 Redisson 作为分布式锁的解决方案，以及 Seata 作为分布式事务的解决方案
+- 目前是用的 develop 分支部署的，master 分支目前还没完全优化完
+- 下阶段计划：集成 ElasticSearch 构建搜索服务，分布式部署 master 分支，Nginx 负载均衡，进行方面优化后用 jmeter 来压测玩一玩
+
+### 技术栈
+#### Java服务端
 
 - JDK 1.8
 - Spring Boot 2.2.1.RELEASE
 - Spring Cloud Greenwich.SR3 & Alibaba
 - MySQL 5.7.26
 - Redis 3.2.100
-- Elastic Search 
+- RabbitMQ 3.8.14
+- Elastic Search (待集成)
 - Shiro
 - Jwt
 - 第三方：七牛云
 
-### 微信小程序端
+#### 微信小程序端
 
 - [MINA](https://developers.weixin.qq.com/miniprogram/dev/framework/)
 - [ColorUI 2.0](https://github.com/weilanwl/ColorUI)
 - [wemark](https://github.com/TooBug/wemark)
 
-### 后台前端
+#### 后台前端
 
 - Vue
 - Element-UI

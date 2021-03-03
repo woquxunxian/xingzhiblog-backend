@@ -66,7 +66,7 @@ public class ArticleDetailServiceImpl implements ArticleDetailService {
     @Override
     @Cacheable(value = RedisConstant.ARTICLE_LIST , key = "#root.methodName")
     public List<ArticleListVO> getAllArticle() {
-        // TODO 分布式锁，锁上没缓存时去数据库拿然后缓存的过程 √
+        // TODO 分布式锁，锁上没缓存时去数据库拿然后缓存的过程 --完成
         // 获取列表信息流的分布式锁
         RLock rLock = redissonClient.getLock(RedissonConstant.ARTICLELIST_REDISSONLOCK);
         rLock.lock();
@@ -96,7 +96,7 @@ public class ArticleDetailServiceImpl implements ArticleDetailService {
     @Transactional
 //    @GlobalTransactional
     public ArticleDetailVO getArticleContentByBlogId(int blogId) throws ExecutionException, InterruptedException {
-        // TODO 异步编排 √
+        // TODO 异步编排 --完成
         ArticleDetailVO articleDetailVO = new ArticleDetailVO();
 
         //获取文章内容
@@ -135,7 +135,7 @@ public class ArticleDetailServiceImpl implements ArticleDetailService {
     @Override
     @CacheEvict(value = RedisConstant.ARTICLE_LIST, allEntries=true)
     public Integer updateViewCountByBlogId(Integer blogId) {
-        // TODO 阅读量先放入redis √，定时任务读取写入数据库 √
+        // TODO 阅读量先放入redis，定时任务读取写入数据库 --完成
         RLock rLock = redissonClient.getLock(RedisConstant.VIEW_NUMBER_KEY + "-lock");
         rLock.lock();
         try {

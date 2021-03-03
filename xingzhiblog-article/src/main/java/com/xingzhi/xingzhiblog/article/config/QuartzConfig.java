@@ -28,8 +28,8 @@ public class QuartzConfig {
                 .forJob(likeJobDetail())
                 .withIdentity("likeTrigger()","likeTriggerGroup")
                 .startNow()
-//                .withSchedule(CronScheduleBuilder.cronSchedule("0/5 * * * * ?"))
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/15 * * * ? *"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0/20 * * * * ?"))
+//                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/15 * * * ? *"))
                 .build();
         return trigger;
     }
@@ -48,8 +48,8 @@ public class QuartzConfig {
                 .forJob(viewJobDetail())
                 .withIdentity("viewTrigger()","viewTriggerGroup")
                 .startNow()
-                .withSchedule(CronScheduleBuilder.cronSchedule("0/20 * * * * ? *"))
-//                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/30 * * * ? *"))
+//                .withSchedule(CronScheduleBuilder.cronSchedule("0/20 * * * * ? *"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 0/30 * * * ? *"))
                 .build();
         return trigger;
     }

@@ -59,7 +59,7 @@ public class ArticleLikeServiceImpl implements ArticleLikeService {
     @Transactional
     @CacheEvict(value = RedisConstant.ARTICLE_LIST, allEntries=true)
     public Integer updateLikeCountByBlogId(Integer blogId, Integer userId) {
-        //TODO 操作先写入redis，然后直接返回结果；然后再定时放入队列，由消费者来监听topic并写入数据库
+        //TODO 操作先写入redis，然后直接返回结果；然后再定时放入队列，由消费者来监听topic并写入数据库 --完成
         String key = blogId + "_" + userId;
         stringRedisTemplate.opsForHash().put(RedisConstant.LIKE_STATUS_KEY, key, "1");
 //        Integer isExist = articleLikeMapper.getUserArticleLikeRecord(blogId, userId);
@@ -87,7 +87,7 @@ public class ArticleLikeServiceImpl implements ArticleLikeService {
     @Transactional
     @CacheEvict(value = RedisConstant.ARTICLE_LIST, allEntries=true)
     public Integer updateMinusLikeCountByBlogId(Integer blogId, Integer userId) {
-        //TODO 操作先写入redis，然后直接返回结果；然后再定时放入队列，由消费者来监听topic并写入数据库
+        //TODO 操作先写入redis，然后直接返回结果；然后再定时放入队列，由消费者来监听topic并写入数据库 --完成
         String key = blogId + "_" + userId;
         stringRedisTemplate.opsForHash().put(RedisConstant.LIKE_STATUS_KEY, key, "0");
         //对点赞表进行状态更新

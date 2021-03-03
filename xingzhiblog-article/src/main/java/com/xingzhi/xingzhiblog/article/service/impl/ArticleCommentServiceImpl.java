@@ -52,8 +52,8 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     @Transactional
     @GlobalTransactional
     public List<ArticleCommentVO> getArticleCommentByBlogId(int blogId) {
-        // TODO 优化下数据处理过程、
-        //  分布式事务 √
+        // TODO 优化下数据处理过程
+        //  分布式事务 --完成
         //获取父评论
         List<ArticleCommentVO> articleCommentVOParentList = articleCommentMapper.getArticleParentCommentByBlogId(blogId, -1);
         if (articleCommentVOParentList.size() == 0) return null;
@@ -87,8 +87,8 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     @Override
     @CacheEvict(value = RedisConstant.ARTICLE_COMMENT, allEntries=true)
     public Integer addArticleParentComment(String content, int userId, int blogId) {
-        // TODO 评论先写入redis，
-        //  然后放到消息队列中，
+        // TODO 评论先写入redis
+        //  然后放到消息队列中
         //  定时读取队列写入数据库，但我感觉评论这个东西并发不高，先不处理
         Integer insertCommentStatus = articleCommentMapper.addArticleParentComment(content, userId, blogId);
         if (insertCommentStatus == 0) return insertCommentStatus;
@@ -108,8 +108,8 @@ public class ArticleCommentServiceImpl implements ArticleCommentService {
     @Override
     @CacheEvict(value = RedisConstant.ARTICLE_COMMENT, allEntries=true)
     public Integer addArticleSonComment(String content, int userId, int blogId, int parentCommentId) {
-        // TODO 评论先写入redis，
-        //  然后放到消息队列中，
+        // TODO 评论先写入redis
+        //  然后放到消息队列中
         //  定时读取队列写入数据库，但我感觉评论这个东西并发不高，先不处理
         Integer insertCommentStatus = articleCommentMapper.addArticleSonComment(content, userId, blogId, parentCommentId);
         if (insertCommentStatus == 0) return insertCommentStatus;

@@ -47,7 +47,17 @@ spring:
     allow-bean-definition-overriding: true
   cache:
     type: redis
-
+  rabbitmq:
+    host: xxxxxx #TODO 地址改
+    port: 5672
+    virtual-host: /
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
+    listener:
+      simple:
+        acknowledge-mode: manual
 #dubbo:
 #  application:
 #    name: dubbo-xingzhiblog-article
