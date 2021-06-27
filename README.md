@@ -2,11 +2,11 @@
 
 ## 项目简介
 
-一款博客微信小程序，包括 Java 服务端，微信小程序端，vue 管理后台前端。主要功能有博客主体（文章流、文章详细内容、评论、点赞）、博主信息、分类标签、归档时间轴等几个模块。后端主要使用 Spring Boot + Spring Cloud & Alibaba + Mybatis 进行开发；使用 Jwt + Shiro做登录验证和权限校验；使用 Mysql 作为持久化数据库以及 Redis 缓存中间件、RabbitMQ作为消息中间件；使用 ElasticSearch 作为检索服务（es刚学会，还未集成到项目）；使用七牛云 OSS 作为图片存储服务；使用 [renren-fast](https://gitee.com/renrenio/renren-fast) 作为后台服务脚手架。微信小程序端主要使用原生框架进行开发，使用 ColorUI 作为 UI 框架，Wemark 组件进行 Markdown 渲染。管理后台前端主要使用Vue、Element-UI、axios、[renren-fast-vue](https://gitee.com/renrenio/renren-fast-vue)。此项目是我的第一个项目，许多技术也很不熟练，大多是一边写一边学习的，还希望各位多多指教/批评，感谢！o(*////▽////*)q
+一款博客微信小程序，包括 Java 服务端，微信小程序端，管理后台。主要功能有博客主体（首页卡片流、文章详细内容阅读、文章评论、文章点赞）、博主信息、分类标签、归档时间轴等几个模块。后端主要使用 Spring Boot + Spring Cloud & Alibaba + Mybatis 进行web开发；使用 Mysql 作为持久化数据库以及 Redis作为 缓存中间件、RabbitMQ作为消息中间件；使用 ElasticSearch 作为检索服务（es刚学会，还未集成到项目）；使用七牛云 OSS 作为图片存储服务；使用 [renren-fast](https://gitee.com/renrenio/renren-fast) 作为后台服务脚手架。微信小程序端主要使用原生框架进行开发，使用 ColorUI 作为 UI 框架，Wemark 组件进行 Markdown 渲染。管理后台前端主要使用Vue、Element-UI、axios、[renren-fast-vue](https://gitee.com/renrenio/renren-fast-vue)。
 
 ## 项目体验
 
-目前微信小程序已上线，上线目的主要是给自己一点激励...
+目前微信小程序已上线，欢迎围观 ~
 
 体验方式：微信搜索小程序“行之Blog”或者微信扫码以下小程序码
 
@@ -17,8 +17,7 @@
 - 文章详情内容渲染速度有点看手机性能的，如果点击文章进入后内容没有马上显示请稍微等一下
 
 - ElasticSearch 目前还未用到项目上，后续迭代的时候会用上（用于文章检索、标签检索等）
-- 用户前台（小程序端）已基本完成，管理后台的需求不是很急迫，所以其目前处于起始状态
-- admin 模块的 master 分支使用的是人人开源的 [renren-fast-vue](https://gitee.com/renrenio/renren-fast-vue) 作为脚手架，而 develop 分支则是自己搭建的 Shiro + Jwt
+- 管理后台目前还处于待开发状态
 
 ## 项目代码仓库
 
@@ -32,12 +31,11 @@
 
 ### 技术特色
 
-- 文章详情页采用 CompletableFuture 异步编排的方式获取详情页的内容数据，提升了接口响应速度
-- 文章点击阅读量增加采用先写入 redis 缓存中，再由定时任务 QuartZ 定时写入 MySQL 数据库
-- 文章点赞/取消赞操作数据先写入 redis 缓存中，再由定时任务 QuartZ 定时发送到 RabbitMQ 消息队列的 topic 中，由空闲消费者把消息数据写入 MySQL 中进行持久化
+- 文章详情页采用 CompletableFuture 异步编排的方式获取详情页的内容数据，提升接口响应速度
+- 点赞和阅读量采用异步写入的方式
 - 采用了 Redisson 作为分布式锁的解决方案，以及 Seata 作为分布式事务的解决方案
 - 目前是用的 develop 分支部署的，master 分支目前还没完全优化完
-- 下阶段计划：集成 ElasticSearch 构建搜索服务，分布式部署 master 分支，Nginx 负载均衡，进行方面优化后用 jmeter 来压测玩一玩
+- 下阶段计划：集成 ElasticSearch 构建搜索服务，分布式部署 master 分支，Nginx 负载均衡
 
 ### 技术栈
 #### Java服务端
@@ -48,10 +46,8 @@
 - MySQL 5.7.26
 - Redis 3.2.100
 - RabbitMQ 3.8.14
-- Elastic Search (待集成)
-- Shiro
-- Jwt
-- 第三方：七牛云
+- Elastic Search (待开发)
+- oss：七牛云
 
 #### 微信小程序端
 
@@ -59,55 +55,15 @@
 - [ColorUI 2.0](https://github.com/weilanwl/ColorUI)
 - [wemark](https://github.com/TooBug/wemark)
 
-#### 后台前端
-
-- Vue
-- Element-UI
-- [renren-fast-vue](https://gitee.com/renrenio/renren-fast-vue)
-
 ## 功能介绍
 
 ### 服务端
 
-服务端使用 Java 作为主要编程语言，向微信小程序端（前台）和 Vue后台端提供数据交互服务，使用的技术包括：Spring Boot 进行 Web 搭建和项目主要支持，Spring Cloud & Alibaba 进行微服务搭建，Mybatis 作为数据库ORM框架，Mysql 数据库进行数据持久化，Redis 作为缓存中间件进行读操作的缓存以支持高频的读操作，Elastic Search 作为关键字检索开发框架，Shiro + Jwt 进行权限控制，七牛云 OSS 进行图片存储，Maven 进行项目管理，Tomcat 作为 web 服务器，GIt / GitHub / GItee 进行代码管理。
+服务端使用 Java 作为主要编程语言，向微信小程序端（前台）和 Vue后台端提供数据交互服务，使用的技术包括：Spring Boot 进行 Web 搭建和项目主要支持，Spring Cloud & Alibaba 进行微服务搭建，Mybatis 作为数据库ORM框架，Mysql 数据库进行数据持久化，Redis 作为缓存中间件进行读操作的缓存以支持高频的读操作，使用RabbitMQ作为消息中间件进行了一些异步写入的操作，Elastic Search 进行检索服务的搭建，七牛云 OSS 进行图片存储，Maven 进行项目管理，Tomcat 作为 web 服务器，GIt / GitHub / GItee 进行代码管理。
 
 ### 微信小程序
 
-微信小程序作为面向用户的前台，具备文章流显示，文章详细内容显示，文章点赞/取消点赞，文章阅读量显示，文章评论/回复，用户微信登录，博主信息展示，博客归档信息等功能。目前来说功能比较少，因为我的初衷是做一个个人博客，所以后续可能会只进行功能的优化和修改，而不会增加功能（如前台用户系统，收藏等等功能）。由于后续我也会不断地学习新的技术，因此我将把后续学到的技术应用到新的项目中。
-
-### 后台
-
-后台作为面向系统管理员的应用，具备以下功能：
-
-- 主题定制，通过scss变量统一一站式定制
-- 动态菜单，通过菜单管理统一管理访问路由
-- 数据切换，通过mock配置对接口数据／mock模拟数据进行切换
-
-当然了，以上功能是 renren-fast-vue 自带的 o(*////▽////*)q 
-
-而我基于以上基础，进行二次开发，最后具备以下功能
-
-- 内容管理
-  - 文章管理
-    - 文章内容管理
-    - 评论管理
-  - 标签管理
-  - 归档管理
-- 用户管理
-  - 系统管理员管理
-  - 前台微信用户管理
-
-## 项目意义
-
-此项目算是我真正意义上的第一个实战项目吧，对我个人而言，可能技术意义大于项目应用意义。项目一开始时也踩了很多坑，到现在，也是跌跌撞撞把一些基础功能实现了，目前的技术栈可能还是比较基础的，后续我也会迭代，把一些陆续学习到的新技术应用到这个项目中，用这个项目来记录自己的成长。
-
-## 开发过程
-
-### 需求分析
-
-<img src="http://qiniupublic.qingpingyue.top/行之Blog.png"/>
-
-目前画的思维导图...应该不是很规范...
+微信小程序作为面向用户的前台，具备文章流显示，文章详细内容显示，文章点赞/取消点赞，文章阅读量显示，文章评论/回复，用户微信登录，博主信息展示，博客归档信息等功能。目前来说功能比较少，因为我的初衷只是做一个非常简单的个人博客，所以后续可能会只进行功能的优化和修改，而不会增加功能。
 
 ## 项目展示
 
@@ -120,7 +76,3 @@
 | ![](http://xingzhi-blog-images.qingpingyue.top/b4b6baedf4530c3a345ec7368e3c62c.jpg) | ![](http://xingzhi-blog-images.qingpingyue.top/ff7cb27d3bbdcf1963b08233b479068.jpg) | ![](http://xingzhi-blog-images.qingpingyue.top/826f628cf4fcf3ade0cf15efcee8894.jpg) | ![](http://xingzhi-blog-images.qingpingyue.top/fc418fb2e2fdb1817967ae48fe88d7b.jpg) |
 | **分类标签页**                                               | **归档页**                                                   | **作者简介（抽屉式）**                                       | **评论区**                                                   |
 | ![](http://xingzhi-blog-images.qingpingyue.top/9eb3a254821a305b42a5efae87fe009.jpg) | ![](http://xingzhi-blog-images.qingpingyue.top/7797566ec43526ff34baf032c3deef3.jpg) | ![](http://xingzhi-blog-images.qingpingyue.top/57b70cb65bb95e0f40e7214c201ae48.jpg) | ![](http://xingzhi-blog-images.qingpingyue.top/a5c3e2c12b90da3f48e4e9924aac6e3.jpg) |
-
-### 管理后台展示
-
-**正在努力开发中....**
